@@ -120,6 +120,8 @@ python code/webserver.py
 
 ## Citing this work
 
+The Data2Vis paper can be cited as follows:
+
 ```
 @article{DBLP:journals/corr/abs-1804-03126,
   author    = {Victor Dibia and
