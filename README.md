@@ -19,7 +19,7 @@ Qualitative results show that our model learns the vocabulary and syntax for a v
 ## Data Generation and Model
 <img src="static/assets/datatransform.png" width="100%">
 
-> Data2Vis is based on the code [seq2seq](https://github.com/google/seq2seq) code repository. The reader is highly encouraged to read the [seq2seq code documentation](https://google.github.io/seq2seq/) to learn more about training and inference are implemented. This repo only adds our [training data](examples), [data preparation scripts](utils), and a script to [serve](code/webserver.py) seq2seq inference results over a web api used in the [web demo](static).
+> Data2Vis is based on the code [seq2seq](https://github.com/google/seq2seq) code repository. The reader is highly encouraged to read the [seq2seq code documentation](https://google.github.io/seq2seq/) to learn more about training and inference are implemented. This repo only adds our [training data](examples), [data preparation scripts](utils), and a script to [serve](webserver.py) seq2seq inference results over a web api used in the [web demo](static).
 
 Sequence to sequence models are trained using source and target pairs. In this experiment the source pair is a line of `json data` and target pair is a valid Vega-lite visualization specification for the `json data`. The [examples](code/examples) folder contains 4300 Vega-lite examples from which 215k pairs are generated ([sourcedata](code/sourcedata)) folder)and subsequently used to train a seq2seq model. 
 
@@ -28,9 +28,9 @@ For convenience we include a data generation [script](utils/data_gen.py) which i
 | Folder | Content |
 |----------|----------|
 | [examples](examples)      | Directory containing 4300 Vega-lite example visualization specifications      |
-| [examplesdata](examples/data)     | Directory containing `json data` used in the visualization specifications above    | 
+| [examplesdata](examplesdata)     | Directory containing `json data` used in the visualization specifications above    | 
 | [static](static)     | Directory containing web demo css and js files   | 
-| [code/vizmodel](code/vizmodel)     | Directory containing the `trained model` generated in our training runs     | 
+| [code/vizmodel](vizmodel)     | Directory containing the `trained model` generated in our training runs     | 
 
 ## Install Dependencies
 
@@ -83,7 +83,7 @@ Note: we used no delimiters to indicate we are training a character model.
 
 ## Inference
 
-To run inference, use the infer script in the [bin](code/bin) folder.
+To run inference, use the infer script in the [bin](bin) folder.
 
 ```bash
 python -m bin.infer \
