@@ -1,0 +1,47 @@
+{
+    "model_class": "AttentionSeq2Seq",
+    "model_params": {
+        "optimizer.name": "Adam",
+        "source.reverse": false,
+        "attention.class": "seq2seq.decoders.attention.AttentionLayerDot",
+        "decoder.class": "seq2seq.decoders.AttentionDecoder",
+        "inference.beam_search.beam_width": 5,
+        "source.max_seq_len": 500,
+        "target.max_seq_len": 500,
+        "attention.params": {
+            "num_units": 256
+        },
+        "vocab_target": "sourcedata/vocab.target",
+        "optimizer.params": {
+            "epsilon": 8e-07
+        },
+        "embedding.dim": 256,
+        "optimizer.learning_rate": 0.0001,
+        "encoder.params": {
+            "rnn_cell": {
+                "dropout_input_keep_prob": 0.5,
+                "cell_class": "LSTMCell",
+                "dropout_output_keep_prob": 1.0,
+                "cell_params": {
+                    "num_units": 256
+                },
+                "num_layers": 2
+            }
+        },
+        "bridge.class": "seq2seq.models.bridges.ZeroBridge",
+        "vocab_source": "sourcedata/vocab.source",
+        "decoder.params": {
+            "rnn_cell": {
+                "dropout_input_keep_prob": 0.5,
+                "cell_class": "LSTMCell",
+                "dropout_output_keep_prob": 1.0,
+                "cell_params": {
+                    "num_units": 256
+                },
+                "num_layers": 2
+            },
+            "max_decode_length": 2000
+        },
+        "encoder.class": "seq2seq.encoders.BidirectionalRNNEncoder"
+    }
+}
