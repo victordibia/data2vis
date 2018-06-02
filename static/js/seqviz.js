@@ -12,7 +12,7 @@ $(function () {
 
 
     var exampleProgressBarColor = "#152934"
-    var numExampleGraphsPerRow = 50
+    var numExampleGraphsPerRow = 10
     // Assign the specification to a local variable vlSpec.
     var exampleGraphWidth = 150
     var exampleGraphHeight = 100;
@@ -225,7 +225,7 @@ $(function () {
         phantomClass = containsPhantom ? "bottomred" : "bottomgreen"
         tooltip = containsPhantom ? "Phantom field generated." : "No Phantom field."
 
-
+        exampleGraphWidth = 150
         vlSpec.width = exampleGraphWidth
         vlSpec.height = exampleGraphHeight
         var opt = {
