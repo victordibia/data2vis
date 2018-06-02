@@ -23,7 +23,7 @@ Qualitative results show that our model learns the vocabulary and syntax for a v
 
 Sequence to sequence models are trained using source and target pairs. In this experiment the source pair is a line of `json data` and target pair is a valid Vega-lite visualization specification for the `json data`. The [examples](code/examples) folder contains 4300 Vega-lite examples from which 215k pairs are generated ([sourcedata](code/sourcedata)) folder)and subsequently used to train a seq2seq model. 
 
-For convenience we include a data generation [script](code/helper_functions.py) which is used to generate source, and target pairs from a folder containing Vega-lite visualization examples. Additional details on the content of the repo are given below.
+For convenience we include a data generation [script](utils/data_gen.py) which is used to generate source, and target pairs from a folder containing Vega-lite visualization examples. Additional details on the content of the repo are given below.
 
 | Folder | Content |
 |----------|----------|
