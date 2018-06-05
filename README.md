@@ -29,6 +29,7 @@ For convenience we include a data generation [script](utils/data_gen.py) which i
 |----------|----------|
 | [examples](examples)      | Directory containing 4300 Vega-lite example visualization specifications      |
 | [examplesdata](examplesdata)     | Directory containing `json data` used in the visualization specifications above    | 
+| [sourcedata](sourcedata)     | Directory containing `training data` (source, target pairs split into train/dev/test sets) used to train the seq2seq model. You can take a look at the [data_gen.py](utils/data_gen.py) script to see how the this training data is generated from the examples.| 
 | [static](static)     | Directory containing web demo css and js files   | 
 | [code/vizmodel](vizmodel)     | Directory containing the `trained model` generated in our training runs     | 
 
