@@ -1,1 +1,54 @@
-{"encoding": {"y": {"field": "Major_Genre", "type": "nominal", "primitiveType": "string", "selected": true, "_any": false, "scale": {"bandSize": 30}}, "x": {"field": "IMDB_Votes", "type": "quantitative", "scale": {"bandSize": 30}}}, "config": {"background": "white", "cell": {"width": 400, "height": 400}}, "mark": "tick", "data": {"values": [{"Title": "The Land Girls", "US_Gross": 146083, "Worldwide_Gross": 146083, "US_DVD_Sales": null, "Production_Budget": 8000000, "Release_Date": "12-Jun-98", "MPAA_Rating": "R", "Running_Time_min": null, "Distributor": "Gramercy", "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": null, "IMDB_Rating": 6.1, "IMDB_Votes": 1071}, {"Title": "First Love, Last Rites", "US_Gross": 10876, "Worldwide_Gross": 10876, "US_DVD_Sales": null, "Production_Budget": 300000, "Release_Date": "7-Aug-98", "MPAA_Rating": "R", "Running_Time_min": null, "Distributor": "Strand", "Source": null, "Major_Genre": "Drama", "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": null, "IMDB_Rating": 6.9, "IMDB_Votes": 207}, {"Title": "I Married a Strange Person", "US_Gross": 203134, "Worldwide_Gross": 203134, "US_DVD_Sales": null, "Production_Budget": 250000, "Release_Date": "28-Aug-98", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": "Lionsgate", "Source": null, "Major_Genre": "Comedy", "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": null, "IMDB_Rating": 6.8, "IMDB_Votes": 865}, {"Title": "Let's Talk About Sex", "US_Gross": 373615, "Worldwide_Gross": 373615, "US_DVD_Sales": null, "Production_Budget": 300000, "Release_Date": "11-Sep-98", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": "Fine Line", "Source": null, "Major_Genre": "Comedy", "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": 13, "IMDB_Rating": null, "IMDB_Votes": null}, {"Title": "Slam", "US_Gross": 1009819, "Worldwide_Gross": 1087521, "US_DVD_Sales": null, "Production_Budget": 1000000, "Release_Date": "9-Oct-98", "MPAA_Rating": "R", "Running_Time_min": null, "Distributor": "Trimark", "Source": "Original Screenplay", "Major_Genre": "Drama", "Creative_Type": "Contemporary Fiction", "Director": null, "Rotten_Tomatoes_Rating": 62, "IMDB_Rating": 3.4, "IMDB_Votes": 165}, {"Title": "Mississippi Mermaid", "US_Gross": 24551, "Worldwide_Gross": 2624551, "US_DVD_Sales": null, "Production_Budget": 1600000, "Release_Date": "15-Jan-99", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": "MGM", "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": null, "IMDB_Rating": null, "IMDB_Votes": null}, {"Title": "Following", "US_Gross": 44705, "Worldwide_Gross": 44705, "US_DVD_Sales": null, "Production_Budget": 6000, "Release_Date": "4-Apr-99", "MPAA_Rating": "R", "Running_Time_min": null, "Distributor": "Zeitgeist", "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": "Christopher Nolan", "Rotten_Tomatoes_Rating": null, "IMDB_Rating": 7.7, "IMDB_Votes": 15133}, {"Title": "Foolish", "US_Gross": 6026908, "Worldwide_Gross": 6026908, "US_DVD_Sales": null, "Production_Budget": 1600000, "Release_Date": "9-Apr-99", "MPAA_Rating": "R", "Running_Time_min": null, "Distributor": "Artisan", "Source": "Original Screenplay", "Major_Genre": "Comedy", "Creative_Type": "Contemporary Fiction", "Director": null, "Rotten_Tomatoes_Rating": null, "IMDB_Rating": 3.8, "IMDB_Votes": 353}, {"Title": "Pirates", "US_Gross": 1641825, "Worldwide_Gross": 6341825, "US_DVD_Sales": null, "Production_Budget": 40000000, "Release_Date": "1-Jul-86", "MPAA_Rating": "R", "Running_Time_min": null, "Distributor": null, "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": "Roman Polanski", "Rotten_Tomatoes_Rating": 25, "IMDB_Rating": 5.8, "IMDB_Votes": 3275}, {"Title": "Duel in the Sun", "US_Gross": 20400000, "Worldwide_Gross": 20400000, "US_DVD_Sales": null, "Production_Budget": 6000000, "Release_Date": "31-Dec-46", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": null, "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": 86, "IMDB_Rating": 7, "IMDB_Votes": 2906}, {"Title": "Tom Jones", "US_Gross": 37600000, "Worldwide_Gross": 37600000, "US_DVD_Sales": null, "Production_Budget": 1000000, "Release_Date": "7-Oct-63", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": null, "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": 81, "IMDB_Rating": 7, "IMDB_Votes": 4035}, {"Title": "Oliver!", "US_Gross": 37402877, "Worldwide_Gross": 37402877, "US_DVD_Sales": null, "Production_Budget": 10000000, "Release_Date": "11-Dec-68", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": "Sony Pictures", "Source": null, "Major_Genre": "Musical", "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": 84, "IMDB_Rating": 7.5, "IMDB_Votes": 9111}, {"Title": "To Kill A Mockingbird", "US_Gross": 13129846, "Worldwide_Gross": 13129846, "US_DVD_Sales": null, "Production_Budget": 2000000, "Release_Date": "25-Dec-62", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": "Universal", "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": 97, "IMDB_Rating": 8.4, "IMDB_Votes": 82786}, {"Title": "Tora, Tora, Tora", "US_Gross": 29548291, "Worldwide_Gross": 29548291, "US_DVD_Sales": null, "Production_Budget": 25000000, "Release_Date": "23-Sep-70", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": null, "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": "Richard Fleischer", "Rotten_Tomatoes_Rating": null, "IMDB_Rating": null, "IMDB_Votes": null}, {"Title": "Hollywood Shuffle", "US_Gross": 5228617, "Worldwide_Gross": 5228617, "US_DVD_Sales": null, "Production_Budget": 100000, "Release_Date": "1-Mar-87", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": null, "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": 87, "IMDB_Rating": 6.8, "IMDB_Votes": 1532}, {"Title": "Over the Hill to the Poorhouse", "US_Gross": 3000000, "Worldwide_Gross": 3000000, "US_DVD_Sales": null, "Production_Budget": 100000, "Release_Date": "17-Sep-20", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": null, "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": null, "IMDB_Rating": null, "IMDB_Votes": null}, {"Title": "Wilson", "US_Gross": 2000000, "Worldwide_Gross": 2000000, "US_DVD_Sales": null, "Production_Budget": 5200000, "Release_Date": "1-Aug-44", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": null, "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": null, "IMDB_Rating": 7, "IMDB_Votes": 451}, {"Title": "Darling Lili", "US_Gross": 5000000, "Worldwide_Gross": 5000000, "US_DVD_Sales": null, "Production_Budget": 22000000, "Release_Date": "1-Jan-70", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": null, "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": "Blake Edwards", "Rotten_Tomatoes_Rating": null, "IMDB_Rating": 6.1, "IMDB_Votes": 858}, {"Title": "The Ten Commandments", "US_Gross": 80000000, "Worldwide_Gross": 80000000, "US_DVD_Sales": null, "Production_Budget": 13500000, "Release_Date": "5-Oct-56", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": null, "Source": null, "Major_Genre": null, "Creative_Type": null, "Director": null, "Rotten_Tomatoes_Rating": 90, "IMDB_Rating": 2.5, "IMDB_Votes": 1677}, {"Title": "12 Angry Men", "US_Gross": 0, "Worldwide_Gross": 0, "US_DVD_Sales": null, "Production_Budget": 340000, "Release_Date": "13-Apr-57", "MPAA_Rating": null, "Running_Time_min": null, "Distributor": "United Artists", "Source": "Original Screenplay", "Major_Genre": "Drama", "Creative_Type": null, "Director": "Sidney Lumet", "Rotten_Tomatoes_Rating": null, "IMDB_Rating": 8.9, "IMDB_Votes": 119101}, {"Title": "Twelve Monkeys", "US_Gross": 57141459, "Worldwide_Gross": 168841459, "US_DVD_Sales": null, "Production_Budget": 29000000, "Release_Date": "27-Dec-95", "MPAA_Rating": "R", "Running_Time_min": null, "Distributor": "Universal", "Source": "Based on Short Film", "Major_Genre": "Drama", "Creative_Type": "Science Fiction", "Director": "Terry Gilliam", "Rotten_Tomatoes_Rating": null, "IMDB_Rating": 8.1, "IMDB_Votes": 169858}, {"Title": 1776, "US_Gross": 0, "Worldwide_Gross": 0, "US_DVD_Sales": null, "Production_Budget": 4000000, "Release_Date": "9-Nov-72", "MPAA_Rating": "PG", "Running_Time_min": null, "Distributor": "Sony/Columbia", "Source": "Based on Play", "Major_Genre": "Drama", "Creative_Type": "Historical Fiction", "Director": null, "Rotten_Tomatoes_Rating": 57, "IMDB_Rating": 7, "IMDB_Votes": 4099}]}, "_info": {"score": 0.76032, "features": [{"reason": "x=IMDB_Votes,Q [ ]", "score": 1}, {"reason": "y=Major_Genre,N [ ]", "score": 0.99}, {"reason": "OxQ plot", "score": 0.8}, {"reason": "mark=tick", "score": 0.96}]}}
+{
+  "encoding": {
+    "y": {
+      "field": "Major_Genre",
+      "type": "nominal",
+      "primitiveType": "string",
+      "selected": true,
+      "_any": false,
+      "scale": {
+        "bandSize": 30
+      }
+    },
+    "x": {
+      "field": "IMDB_Votes",
+      "type": "quantitative",
+      "scale": {
+        "bandSize": 30
+      }
+    }
+  },
+  "config": {
+    "background": "white",
+    "cell": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  "mark": "tick",
+  "data": {
+    "url": "file:///Users/jpocom/Projects/Diagram/chart-generator/data/movies.json",
+    "formatType": "json"
+  },
+  "_info": {
+    "score": 0.76032,
+    "features": [
+      {
+        "reason": "x=IMDB_Votes,Q [ ]",
+        "score": 1
+      },
+      {
+        "reason": "y=Major_Genre,N [ ]",
+        "score": 0.99
+      },
+      {
+        "reason": "OxQ plot",
+        "score": 0.8
+      },
+      {
+        "reason": "mark=tick",
+        "score": 0.96
+      }
+    ]
+  }
+}

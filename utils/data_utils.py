@@ -131,7 +131,7 @@ def generate_data_pairs(examples_directory,train_data_output_directory, data_spl
             filepath = subdir + os.sep + file 
             if filepath.endswith("vl.json"): 
                 data = json.load(open(filepath))
-               
+                
                 if ("url" in data["data"]):
                      
                     data_file_url = data_prefix + data["data"]["url"].rsplit('/', 1)[-1]
@@ -186,6 +186,12 @@ def generate_data_pairs(examples_directory,train_data_output_directory, data_spl
                         all_target_hold.append(target_vega_spec)
                     # break
             
+    with open(train_data_output_directory + "/all_train.sources", mode='wt', encoding='utf-8') as outfile:
+                   outfile.write('\n'.join(str(line) for line in all_sources_hold))
+    with open(train_data_output_directory + "/all_target.targets", mode='wt', encoding='utf-8') as outfile:
+                   outfile.write('\n'.join(str(line) for line in all_target_hold))
+        
+    
     print("size of all files", len(all_sources_hold), len(all_target_hold) )
     print("Max Source Seq Lenght",  max_source_seq_length)
     print("Max Target Seq Lenght",  max_target_seq_length)
