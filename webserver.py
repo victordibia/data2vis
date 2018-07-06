@@ -50,7 +50,7 @@ input_pipeline_dict = {'class': 'ParallelTextInputPipeline', 'params': {
     'source_delimiter': '', 'target_delimiter': '', 'source_files': [destination_file]}}
 
 model_dir_input = "vizmodel"
-input_task_list = [{'class': 'DecodeText', 'params': {'delimiter': ''}}] 
+input_task_list = [{'class': 'DecodeText', 'params': {'delimiter': ''}}, {'class': 'DumpAttention', 'params': {'dump_plots': False , 'output_dir': "attention_plot" }}] 
 #  {'class': 'DumpBeams', 'params': {'file': ['out.npz']}}]
 model_params = "{}"
 batch_size =  32
@@ -89,6 +89,9 @@ model = model_cls(
 
 # print("========model params ==========", model_params)
 
+def _handle_attention(attention_scores):
+    print(">>> Saved attention scores")
+
 def _save_prediction_to_dict(output_string):
     global decoded_string
     decoded_string = output_string ; 
@@ -98,7 +101,10 @@ for tdict in fl_tasks:
     if not "params" in tdict:
         tdict["params"] = {}
     task_cls = locate( str( tdict["class"]) ) or getattr(tasks, str(tdict["class"]))
-    task = task_cls(tdict["params"], callback_func=_save_prediction_to_dict)
+    if (str( tdict["class"]) == "DecodeText"):
+        task = task_cls(tdict["params"], callback_func=_save_prediction_to_dict)
+    elif (str( tdict["class"]) == "DumpAttention"):
+        task = task_cls(tdict["params"], callback_func=_handle_attention)
      
     hooks.append(task) 
 

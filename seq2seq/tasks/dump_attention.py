@@ -21,6 +21,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
+import pickle
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -60,11 +61,18 @@ def _create_figure(predictions_dict):
       X=predictions_dict["attention_scores"][:prediction_len, :source_len],
       interpolation="nearest",
       cmap=plt.cm.Blues)
-  plt.xticks(np.arange(source_len), source_words, rotation=45)
-  plt.yticks(np.arange(prediction_len), target_words, rotation=-45)
+  plt.xticks(np.arange(source_len), source_words, rotation=90)
+  plt.yticks(np.arange(prediction_len), target_words, rotation=-90)
   fig.tight_layout()
+ 
 
   return fig
+
+def _save_plot_params(plot_params):
+  scores_path = os.path.join("attention_plot",
+                               "attention_scores.pkl")
+  with open(scores_path, 'wb') as f:
+        pickle.dump(plot_params, f, pickle.HIGHEST_PROTOCOL)
 
 
 class DumpAttention(InferenceTask):
@@ -84,10 +92,13 @@ class DumpAttention(InferenceTask):
     dump_beams: Write beam search debugging information to this file.
   """
 
-  def __init__(self, params):
+  def __init__(self, params, callback_func):
     super(DumpAttention, self).__init__(params)
+    self.callback_func=callback_func
     self._attention_scores_accum = []
     self._idx = 0
+
+ 
 
     if not self.params["output_dir"]:
       raise ValueError("Must specify output_dir for DumpAttention")
@@ -108,6 +119,7 @@ class DumpAttention(InferenceTask):
     fetches["features.source_len"] = self._predictions["features.source_len"]
     fetches["features.source_tokens"] = self._predictions[
         "features.source_tokens"]
+    # print(">>>>  predictions array", list(self._predictions.keys()) )
     fetches["attention_scores"] = self._predictions["attention_scores"]
     return tf.train.SessionRunArgs(fetches)
 
@@ -128,7 +140,10 @@ class DumpAttention(InferenceTask):
         plt.close()
         tf.logging.info("Wrote %s", output_path)
         self._idx += 1
+       
+      _save_plot_params(fetches)
       self._attention_scores_accum.append(_get_scores(fetches))
+      self.callback_func(self._attention_scores_accum)
 
   def end(self, _session):
     scores_path = os.path.join(self.params["output_dir"],

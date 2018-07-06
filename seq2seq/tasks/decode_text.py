@@ -153,10 +153,18 @@ class DecodeText(InferenceTask):
   def run_through_beam(self, predicted_tokens):
     # Get all top k predictions and append to a single array
     beam_output_array = []
-    for i in range(predicted_tokens.shape[-1]): 
-        out_val = self.params["delimiter"].join(predicted_tokens[:, i] ).split(
-          "SEQUENCE_END")[0]
-        beam_output_array.append(out_val)
+    # print(">>> getting beam lenght ", np.ndim(predicted_tokens))
+    # print(">>> getting beam lenght ", predicted_tokens[:, 0])
+
+    if (np.ndim(predicted_tokens) == 1) :
+      out_val = self.params["delimiter"].join(predicted_tokens).split( "SEQUENCE_END")[0]
+      beam_output_array.append(out_val)
+    else:    
+      for i in range(predicted_tokens.shape[-1]): 
+          out_val = self.params["delimiter"].join(predicted_tokens[:, i] ).split(
+            "SEQUENCE_END")[0]
+          print (">>>>> ", out_val)
+          beam_output_array.append(out_val)
     # print("******** beam output array", beam_output_array)
     # print("==========================================")
     return beam_output_array
@@ -170,7 +178,7 @@ class DecodeText(InferenceTask):
           fetches["predicted_tokens"].astype("S"), "utf-8")
       predicted_tokens = fetches["predicted_tokens"]
 
-      # print("Number of beams ....... ", predicted_tokens.shape, np.ndim(predicted_tokens))
+      print("Number of beams ....... ", predicted_tokens.shape, np.ndim(predicted_tokens))
       self.callback_func(self.run_through_beam(predicted_tokens))
 
 

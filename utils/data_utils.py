@@ -139,6 +139,7 @@ def generate_data_pairs(examples_directory,train_data_output_directory, data_spl
                     if ("_any" in data["encoding"]):
                         del data["encoding"]["_any"]
                     del data["data"]
+                    del data["config"]
 
                     target_vega_spec = str(json.dumps(data))
                     target_vega_spec = target_vega_spec.replace(', "_any": false','')
@@ -181,14 +182,13 @@ def generate_data_pairs(examples_directory,train_data_output_directory, data_spl
                         if len(source_data_spec) > max_source_seq_length:
                             max_source_seq_length = len(source_data_spec)  
                         
-
                         all_sources_hold.append(source_data_spec)
                         all_target_hold.append(target_vega_spec)
                     # break
             
     with open(train_data_output_directory + "/all_train.sources", mode='wt', encoding='utf-8') as outfile:
                    outfile.write('\n'.join(str(line) for line in all_sources_hold))
-    with open(train_data_output_directory + "/all_target.targets", mode='wt', encoding='utf-8') as outfile:
+    with open(train_data_output_directory + "/all_train.targets", mode='wt', encoding='utf-8') as outfile:
                    outfile.write('\n'.join(str(line) for line in all_target_hold))
         
     

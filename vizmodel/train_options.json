@@ -5,7 +5,7 @@
         "source.reverse": false,
         "attention.class": "seq2seq.decoders.attention.AttentionLayerDot",
         "decoder.class": "seq2seq.decoders.AttentionDecoder",
-        "inference.beam_search.beam_width": 5,
+        "inference.beam_search.beam_width": 1,
         "source.max_seq_len": 500,
         "target.max_seq_len": 500,
         "attention.params": {
