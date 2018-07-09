@@ -51,7 +51,7 @@ def _create_figure(predictions_dict):
 #       X=predictions_dict["attention_scores"][:prediction_len, :source_len],
 #       interpolation="nearest",
 #       cmap=plt.cm.Blues)
-  plt.xticks(np.arange(source_len), source_words, rotation=0)
+  plt.xticks(np.arange(source_len), source_words, rotation=90)
   plt.yticks(np.arange(prediction_len), target_words, rotation=0)
 #   fig.tight_layout()
 

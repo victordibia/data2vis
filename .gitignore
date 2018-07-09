@@ -1,7 +1,8 @@
 char_rnn/save 
 model.zip
 wml.yml
-sourcedata
+vizmodelbi
+vizmodeluni
 modelbackup
 **/.DS_Store
 **/.DS_Store?

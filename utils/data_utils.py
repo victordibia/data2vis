@@ -141,6 +141,14 @@ def generate_data_pairs(examples_directory,train_data_output_directory, data_spl
                     del data["data"]
                     del data["config"]
 
+                    if("x" in  data["encoding"] and  "scale" in  data["encoding"]["x"]):
+                        # print(data["encoding"]["x"]["scale"])
+                        del data["encoding"]["x"]["scale"]
+
+                    if("y" in  data["encoding"] and  "scale" in  data["encoding"]["y"]):
+                        # print("y", data["encoding"]["y"]["scale"])
+                        del data["encoding"]["y"]["scale"]
+
                     target_vega_spec = str(json.dumps(data))
                     target_vega_spec = target_vega_spec.replace(', "_any": false','')
 
