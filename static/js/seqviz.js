@@ -89,11 +89,11 @@ $(function () {
         }
     });
 
-    $('body').on('mouseover', '.beambox', function(event) {
-         
-         theid = $(this).attr("id") 
-         $(".vizbeambox").removeClass("border")
-         $(".vizbeambox#" + "divbox" + theid).addClass("border");
+    $('body').on('mouseover', '.beambox', function (event) {
+
+        theid = $(this).attr("id")
+        $(".vizbeambox").removeClass("border")
+        $(".vizbeambox#" + "divbox" + theid).addClass("border");
     });
 
     // Enable/disable update visualization button if data is in input box
@@ -156,7 +156,7 @@ $(function () {
             hideLoading("#graph_loading_overlay")
             // result = JSON.parse(result)
             $(".beamboxdiv").fadeIn();
-            validjsoncount = 0 ;
+            validjsoncount = 0;
 
             if (result.status) {
                 $(".vizbox").empty();
@@ -168,7 +168,7 @@ $(function () {
                     vegavals = JSON.parse(result.vegaspec);
                 } catch (e) {
                     console.log("JSON parse error parsing array")
-                } 
+                }
 
                 vegavals.forEach(function (vegaspec) {
                     var $beamboxsub = $("<div id='" + beamindex + "' class='beambox'> </div>")
@@ -185,21 +185,21 @@ $(function () {
                     } catch (e) {
                         console.log("JSON parse error .. parsing spec", beamindex)
                         $beamboxsub.addClass("bottomred").attr("tooltip", "InValid JSON .. Oops")
-                    } 
+                    }
 
                     $beamboxsub.text(vegaspec);
                     beamindex++
-                     
-                   
+
+
                     $(".beamboxdiv").append($beamboxsub);
-                    
+
                 });
 
-                headertext = "<strong> [ " + validjsoncount + " / " + vegavals.length + " ]</strong>  generated visualization specifications are valid JSON. Specifications are generated using <a href='https://machinelearningmastery.com/beam-search-decoder-natural-language-processing/'>Beam Search</a> (width=5). "
+                headertext = "<strong> [ " + validjsoncount + " / " + vegavals.length + " ]</strong>  generated visualization specifications are valid JSON. Specifications are generated using <a href='https://machinelearningmastery.com/beam-search-decoder-natural-language-processing/'>Beam Search</a>  (width = " + vegavals.length + "). "
                 $(".generatedvizheader").text("Generated Visualization Grammar ")
                 $(".resultupdate").html(headertext)
                 $(".beamthing").fadeIn()
-                
+
 
 
 
