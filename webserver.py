@@ -2,7 +2,7 @@
 # C
 
 #
-""" Webserver to load predictions
+""" Webserver to load predictions and serve over http endpoints
 """
 
 from __future__ import absolute_import
@@ -49,7 +49,7 @@ PARSER.add_argument(
     default="vizmodel",
     help="Specify which directory contains your trained model.")
 PARSER.add_argument(
-    "--beam_width", type=int, default=1, help="Beam width", required=False)
+    "--beam_width", type=int, default=15, help="Beam width", required=False)
 ARGS = PARSER.parse_args()
 
 destination_file = "test.txt"

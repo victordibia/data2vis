@@ -118,11 +118,12 @@ class DumpAttention(InferenceTask):
         fetches["features.source_tokens"] = self._predictions[
             "features.source_tokens"]
         print(">>>>  predictions array", list(self._predictions.keys()))
-        if ("attention_scores" in fetches):
-            fetches["attention_scores"] = self._predictions["attention_scores"]
-        else:
-            fetches["attention_scores"] = self._predictions[
-                "beam_search_output.original_outputs.attention_scores"]
+        fetches["attention_scores"] = self._predictions["attention_scores"]
+        # if ("attention_scores" in fetches):
+
+        # else:
+        #     fetches["attention_scores"] = self._predictions[
+        #         "beam_search_output.original_outputs.attention_scores"]
         return tf.train.SessionRunArgs(fetches)
 
     def after_run(self, _run_context, run_values):
