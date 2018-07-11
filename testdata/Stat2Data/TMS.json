@@ -1,1 +1,1 @@
-[{"No": "61", "Yes": "39", "Group": "TMS", "Trials": "100"}, {"No": "78", "Yes": "22", "Group": "Placebo", "Trials": "100"}]
+[{"Trials": "100", "Yes": "39", "Group": "TMS", "No": "61"}, {"Trials": "100", "Yes": "22", "Group": "Placebo", "No": "78"}]

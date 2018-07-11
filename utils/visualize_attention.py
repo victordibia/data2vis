@@ -39,7 +39,7 @@ def _create_figure(predictions_dict):
     fig = plt.figure(figsize=(10, 10))
     ax = fig.add_subplot(1, 1, 1)
 
-    ax.matshow(plot_data, cmap='viridis')
+    ax.matshow(plot_data, cmap='Blues')
     fontdict = {'fontsize': 14}
 
     ax.xaxis.set_major_locator(ticker.MultipleLocator(1))

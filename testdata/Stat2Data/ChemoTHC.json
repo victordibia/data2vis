@@ -1,1 +1,1 @@
-[{"Effective": "36", "Drug": "THC", "Patients": "79", "NotEffective": "43"}, {"Effective": "16", "Drug": "Prochlorperazine", "Patients": "78", "NotEffective": "62"}]
+[{"Effective": "36", "Patients": "79", "NotEffective": "43", "Drug": "THC"}, {"Effective": "16", "Patients": "78", "NotEffective": "62", "Drug": "Prochlorperazine"}]
