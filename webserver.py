@@ -105,7 +105,8 @@ train_options = training_utils.TrainOptions.load(model_dir_input)
 model_cls = locate(train_options.model_class) or \
     getattr(models, train_options.model_class)
 model_params = train_options.model_params
-model_params["inference.beam_search.beam_width"] = ARGS.beam_width
+if (ARGS.beam_width != 1):
+    model_params["inference.beam_search.beam_width"] = ARGS.beam_width
 model_params = _deep_merge_dict(model_params, _maybe_load_yaml(model_params))
 model = model_cls(params=model_params, mode=tf.contrib.learn.ModeKeys.INFER)
 

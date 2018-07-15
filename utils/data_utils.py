@@ -393,6 +393,17 @@ def clean_test_dataset_remove_periods():
             if filepath.endswith(
                     "json") and not filepath.endswith("lsit.json"):
                 data = json.load(open(filepath))
+                for row in data:
+                    for field in row.keys():
+                        if "." in field:
+                            print(filepath)
+                        field_holder = row[field]
+                        new_field_name = field.replace(".",
+                                                       "_")  #remove periods
+                        del row[field]
+                        row[new_field_name] = field_holder
+                with open(filepath, 'w') as outfile:
+                    json.dump(data, outfile)
 
 
 # Perform preprocessing on dataset used to test predictions.
