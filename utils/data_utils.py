@@ -5,6 +5,7 @@ from random import randint, shuffle
 import csv
 from dateutil.parser import parse
 import matplotlib.pyplot as plt
+from collections import Counter
 
 try:
     from json.decoder import JSONDecodeError
@@ -449,6 +450,17 @@ def clean_test_dataset():
                         # save only a fraction of data to reduce load time in demo
 
 
+def get_count_freqs(input_array):
+    counted_marks = (Counter(input_array))
+    counted_marks = list(sorted(counted_marks.items()))
+    counts_marks = []
+    freqs_marks = []
+    for row in counted_marks:
+        counts_marks.append(row[1])
+        freqs_marks.append(row[0])
+    return (counts_marks, freqs_marks)
+
+
 # Generate some statistics on source dataset
 def profile_dataset_vegaspec(examples_directory):
     mark_types = []
@@ -467,11 +479,17 @@ def profile_dataset_vegaspec(examples_directory):
                     if (transform_val in data_string):
                         transform_counts.append(transform_val)
 
+    counts_marks, freqs_marks = get_count_freqs(mark_types)
+
     plt.subplot(1, 2, 1)
-    plt.hist(mark_types)
+    plt.bar(freqs_marks, counts_marks)
+    # plt.hist(counted_marks)
+
+    counts_transform, freqs_transform = get_count_freqs(transform_counts)
+    print(counts_transform, freqs_transform)
 
     plt.subplot(1, 2, 2)
-    plt.hist(transform_counts, align="center")
+    plt.bar(freqs_transform, counts_transform)
     plt.show()
     print("Total examples", len(mark_types))
     # plt.show()
