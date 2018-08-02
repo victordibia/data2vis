@@ -6,6 +6,7 @@ import csv
 from dateutil.parser import parse
 import matplotlib.pyplot as plt
 from collections import Counter
+import operator
 
 try:
     from json.decoder import JSONDecodeError
@@ -103,6 +104,7 @@ def generate_field_types(t_data):
     # print (t_data[0])
     data_labels = {"str": 0, "num": 0}
     field_name_types = {}
+    field_name_types_array = []
     for field_name in t_data[0]:
         current_label = non_null_label(t_data,
                                        field_name)  #t_data[0][field_name]
@@ -111,22 +113,37 @@ def generate_field_types(t_data):
             replace_num_var = "num" + str(data_labels["num"])
             data_labels["num"] = data_labels["num"] + 1
             field_name_types[field_name] = replace_num_var
+            field_name_types_array.append({field_name: replace_num_var})
         else:
             replace_str_var = "str" + str(data_labels["str"])
             data_labels["str"] = data_labels["str"] + 1
             field_name_types[field_name] = replace_str_var
-    return field_name_types
+            field_name_types_array.append({field_name: replace_str_var})
+    # print(field_name_types_array)
+    return list(reversed(field_name_types_array))
 
 
 # Replace field names with normalized strings based on field type
+# replace_direction true = forward norm ... from json to normalized
 def replace_fieldnames(source_data, field_name_types, replace_direction):
+    # for field_name in field_name_types:
+    #     if (replace_direction):
+    #         source_data = str(source_data).replace(
+    #             str(field_name), field_name_types[field_name])
+    #     else:
+    #         source_data = str(source_data).replace(
+    #             str(field_name_types[field_name]), field_name)
+    # return source_data
     for field_name in field_name_types:
+        # print(field_name)
+        field = list(field_name.keys())[0]
+        value = field_name[field]
+        # print(field, value)
+
         if (replace_direction):
-            source_data = str(source_data).replace(
-                str(field_name), field_name_types[field_name])
+            source_data = str(source_data).replace(str(field), value)
         else:
-            source_data = str(source_data).replace(
-                str(field_name_types[field_name]), field_name)
+            source_data = str(source_data).replace(str(value), field)
     return source_data
 
 
@@ -205,13 +222,19 @@ def generate_data_pairs(examples_directory, train_data_output_directory,
                         source_data_spec = str(json.dumps(data_holder))
 
                         # Replace filednames with normalized string and norm values
-                        for field_name in field_name_types:
-                            target_vega_spec = target_vega_spec.replace(
-                                str(field_name), field_name_types[field_name])
-                            source_data_spec = source_data_spec.replace(
-                                str(field_name), field_name_types[field_name])
+                        target_vega_spec = replace_fieldnames(
+                            target_vega_spec, field_name_types, True)
+                        source_data_spec = replace_fieldnames(
+                            source_data_spec, field_name_types, True)
+                        # for field_name in field_name_types:
+                        #     target_vega_spec = target_vega_spec.replace(
+                        #         str(field_name), field_name_types[field_name])
+                        #     source_data_spec = source_data_spec.replace(
+                        #         str(field_name), field_name_types[field_name])
 
-                        # print(source_data_spec,"\n===========\n" + filepath + "\t" ,target_vega_spec)
+                        print(source_data_spec, "=****=", target_vega_spec,
+                              "==========\n")
+
                         # Keep track of maximum source sequence length
                         if len(source_data_spec) > max_source_seq_length:
                             max_source_seq_length = len(source_data_spec)
@@ -220,49 +243,49 @@ def generate_data_pairs(examples_directory, train_data_output_directory,
                         all_target_hold.append(target_vega_spec)
                     # break
 
-    with open(
-            train_data_output_directory + "/all_train.sources",
-            mode='wt',
-            encoding='utf-8') as outfile:
-        outfile.write('\n'.join(str(line) for line in all_sources_hold))
-    with open(
-            train_data_output_directory + "/all_train.targets",
-            mode='wt',
-            encoding='utf-8') as outfile:
-        outfile.write('\n'.join(str(line) for line in all_target_hold))
+    # with open(
+    #         train_data_output_directory + "/all_train.sources",
+    #         mode='wt',
+    #         encoding='utf-8') as outfile:
+    #     outfile.write('\n'.join(str(line) for line in all_sources_hold))
+    # with open(
+    #         train_data_output_directory + "/all_train.targets",
+    #         mode='wt',
+    #         encoding='utf-8') as outfile:
+    #     outfile.write('\n'.join(str(line) for line in all_target_hold))
 
-    print("size of all files", len(all_sources_hold), len(all_target_hold))
-    print("Max Source Seq Lenght", max_source_seq_length)
-    print("Max Target Seq Lenght", max_target_seq_length)
+    # print("size of all files", len(all_sources_hold), len(all_target_hold))
+    # print("Max Source Seq Lenght", max_source_seq_length)
+    # print("Max Target Seq Lenght", max_target_seq_length)
 
-    # Uniformly shuffle source and target sequence pair lists
-    rand_list = list(range(0, len(all_sources_hold) - 1))
-    shuffle(rand_list)
-    # print(rand_list)
-    all_sources_hold = shuffle_elements(rand_list, all_sources_hold)
-    all_target_hold = shuffle_elements(rand_list, all_target_hold)
+    # # Uniformly shuffle source and target sequence pair lists
+    # rand_list = list(range(0, len(all_sources_hold) - 1))
+    # shuffle(rand_list)
+    # # print(rand_list)
+    # all_sources_hold = shuffle_elements(rand_list, all_sources_hold)
+    # all_target_hold = shuffle_elements(rand_list, all_target_hold)
 
-    for param in data_split_params:
-        with open(
-                train_data_output_directory + "/" + param["tag"] + ".sources",
-                mode='wt',
-                encoding='utf-8') as outfile:
-            outfile.write('\n'.join(
-                str(line) for line in all_sources_hold[int(
-                    param["percentage"][0] * len(all_sources_hold)):int(
-                        param["percentage"][1] * len(all_sources_hold))]))
-        print("  > Saved ",
-              train_data_output_directory + "/" + param["tag"] + ".sources")
-        with open(
-                train_data_output_directory + "/" + param["tag"] + ".targets",
-                mode='wt',
-                encoding='utf-8') as outfile:
-            outfile.write('\n'.join(
-                str(line) for line in all_target_hold[int(
-                    param["percentage"][0] * len(all_target_hold)):int(
-                        param["percentage"][1] * len(all_target_hold))]))
-        print("  > Saved ",
-              train_data_output_directory + "/" + param["tag"] + ".targets")
+    # for param in data_split_params:
+    #     with open(
+    #             train_data_output_directory + "/" + param["tag"] + ".sources",
+    #             mode='wt',
+    #             encoding='utf-8') as outfile:
+    #         outfile.write('\n'.join(
+    #             str(line) for line in all_sources_hold[int(
+    #                 param["percentage"][0] * len(all_sources_hold)):int(
+    #                     param["percentage"][1] * len(all_sources_hold))]))
+    #     print("  > Saved ",
+    #           train_data_output_directory + "/" + param["tag"] + ".sources")
+    #     with open(
+    #             train_data_output_directory + "/" + param["tag"] + ".targets",
+    #             mode='wt',
+    #             encoding='utf-8') as outfile:
+    #         outfile.write('\n'.join(
+    #             str(line) for line in all_target_hold[int(
+    #                 param["percentage"][0] * len(all_target_hold)):int(
+    #                     param["percentage"][1] * len(all_target_hold))]))
+    #     print("  > Saved ",
+    #           train_data_output_directory + "/" + param["tag"] + ".targets")
 
 
 """[Delete none vl spec files from examples directory, generate a list of datafiles]
@@ -481,6 +504,7 @@ def profile_dataset_vegaspec(examples_directory):
 
     counts_marks, freqs_marks = get_count_freqs(mark_types)
 
+    plt.figure(figsize=(8, 3))
     plt.subplot(1, 2, 1)
     plt.bar(freqs_marks, counts_marks)
     # plt.hist(counted_marks)
@@ -490,9 +514,23 @@ def profile_dataset_vegaspec(examples_directory):
 
     plt.subplot(1, 2, 2)
     plt.bar(freqs_transform, counts_transform)
-    plt.show()
+    # fig = plt.figure(figsize=(8, 4))
+    plt.savefig(
+        'docs/datasetcharacteristics.eps',
+        format='eps',
+        dpi=1000,
+        bbox_inches='tight')
+    # plt.show()
     print("Total examples", len(mark_types))
     # plt.show()
+
+
+def write_data_to_file(destination_file, source_data_first_sample):
+    # Write normalized JSON to file for seq2seq model
+    # print("Writing data to file:", source_data_first_sample)
+    with open(destination_file, 'w') as source_data_file:
+        json.dump(source_data_first_sample, source_data_file)
+        # source_data_file.write((json.dumps(source_data)))
 
 
 # Normalize source json data fieldnames before visualization prediction
@@ -511,9 +549,10 @@ def forward_norm(source_data, destination_file, f_names):
 
     # Write normalized JSON to file for seq2seq model
     # print("Writing data to file:", source_data_first_sample)
-    with open(destination_file, 'w') as source_data_file:
-        json.dump(source_data_first_sample, source_data_file)
-        # source_data_file.write((json.dumps(source_data)))
+    write_data_to_file(destination_file, source_data_first_sample)
+    # with open(destination_file, 'w') as source_data_file:
+    #     json.dump(source_data_first_sample, source_data_file)
+    #     # source_data_file.write((json.dumps(source_data)))
     return True
 
 
