@@ -1,1 +1,1 @@
-{"num5": "3.90000009536743", "str4": "no", "str3": "no", "str2": "no", "str0": "no", "num6": "2", "str1": "no", "str5": "no", "num3": "5", "num2": "0", "num0": "0.221000003814697", "num1": "0.8", "num4": "0.221000003814697"}
+{"str0": "HamPickles", "str2": "WholeWheat", "num1": "1", "num0": "34", "str1": "no"}

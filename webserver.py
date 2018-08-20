@@ -217,11 +217,21 @@ def testdata():
     return jsonify(data_utils.load_test_dataset())
 
 
-@app.route("/testhundred", methods=['GET'])
+@app.route("/testhundred", methods=['POST'])
 def testhundred():
     input_data = request.json
-    data = data_utils.get_test100_data(2)
-    response_payload = {"data": data, "status": True}
+    print("input data >>>>>>>>>", input_data)
+    data = data_utils.get_test100_data(input_data["index"])
+    response_payload = {"data": data, "status": True, "model": model_dir_input}
+    return jsonify(response_payload)
+
+
+@app.route("/savetest", methods=['POST'])
+def savetest():
+    input_data = request.json
+    print("input data >>>>>>>>>", input_data)
+    data = data_utils.save_test_results(input_data)
+    response_payload = {"status": True}
     return jsonify(response_payload)
 
 

@@ -36,7 +36,7 @@ $(function () {
     var beamWidth = 0;
     var phantomVariableCount = 0;
     var phantomVariableArray = [];
-    var maxTestDataCount = 100;
+    var maxTestDataCount = 5;
 
 
     /**
@@ -268,10 +268,8 @@ $(function () {
                         loadBeam(spec, beamindex, specholder);
                         $beamboxsub.addClass("bottomgreen").attr("tooltip", "Valid JSON Generated.")
                         validJsonCount++
-                        validJsonArray.push(true)
                     } catch (e) {
-                        validJsonArray.push(false)
-                        // console.log("JSON parse error .. parsing spec", beamindex)
+                        console.log("JSON parse error .. parsing spec", beamindex)
                         $beamboxsub.addClass("bottomred").attr("tooltip", "InValid JSON .. Oops")
                     }
 
@@ -293,20 +291,15 @@ $(function () {
                     testResult = {
                         "beamwidth": beamWidth,
                         "validjsoncount": validJsonCount,
-                        "validjsonarray": validJsonArray,
                         "validvegacount": validVegaspecCount,
-                        "validvegaarray": validVegaspecArray,
-                        "phantomcount": phantomVariableCount,
-                        "phantomarray": phantomVariableArray
+                        "phantomcount": phantomVariableCount
                     }
                     testResultHolder.push(testResult)
-                    console.log(testIndex, " Loading next test data", testResult)
+                    console.log(testResult)
                     if (testIndex < maxTestDataCount) {
                         loadTestSuiteData()
-                    } else {
-                        sendTestResults()
                     }
-                }, 800)
+                }, 2000)
 
             } else {
                 result = JSON.parse(JSON.stringify(result))
@@ -332,9 +325,6 @@ $(function () {
 
         if (containsPhantom) {
             phantomVariableCount++
-            phantomVariableArray.push(true)
-        } else {
-            phantomVariableArray.push(false)
         }
 
         exampleGraphWidth = 150
@@ -355,11 +345,11 @@ $(function () {
         // $vizsubbox.hide()
 
         vegaEmbed(".vizbeambox#" + divid, vlSpec, opt).then(function (result) {
+            console.log("Increasing vega counter")
             validVegaspecCount++
-            validVegaspecArray.push(true)
         }).catch(function (err) {
             // reloadData()
-            validVegaspecArray.push(false)
+
         });
 
     }

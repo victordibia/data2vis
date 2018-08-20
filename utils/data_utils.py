@@ -611,3 +611,11 @@ def forward_norm(source_data, destination_file, f_names):
 # Normalize output data after prediction ... replace short values with actual field names
 def backward_norm(decoded_string, f_names):
     return replace_fieldnames(decoded_string, f_names, False)
+
+
+def save_test_results(input_data):
+    saved_result_path = "utils/testresults/" + input_data["model"] + str(
+        input_data["beamwidth"]) + ".json"
+    with open(saved_result_path, 'w') as outfile:
+        print("writing test results to file")
+        json.dump(input_data, outfile)
