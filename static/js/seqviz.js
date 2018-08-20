@@ -26,6 +26,8 @@ $(function () {
 
     // loadExamplesData() 
 
+    var testindex = 0;
+
 
     /**
      * JS Script to load up random Vegalite data from server and display charts
@@ -56,6 +58,11 @@ $(function () {
         showLoading(".rnnsampleloader")
         loadExamplesData()
         sendGAEvent("button", "click", "generate examples set " + numInputExamples)
+
+    });
+
+    // run test suite
+    $(".runtestbutton").click(function () {
 
     });
 
@@ -90,7 +97,6 @@ $(function () {
     });
 
     $('body').on('mouseover', '.beambox', function (event) {
-
         theid = $(this).attr("id")
         $(".vizbeambox").removeClass("border")
         $(".vizbeambox#" + "divbox" + theid).addClass("border");

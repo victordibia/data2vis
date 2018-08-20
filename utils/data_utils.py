@@ -43,6 +43,10 @@ data_split_params = [{
     "percentage": [0.9, 1]
 }]
 
+test_100_file_path = "utils/testlist.json"
+
+test_100_list = json.load(open(test_100_file_path))
+
 
 # Shuffle elements in an array according to given order
 def shuffle_elements(rand_order, source_list):
@@ -354,6 +358,54 @@ def transform_csv_json(csv_directory, delete_after_convert):
                 read_csv(filepath, filepath.replace("csv", "json"), format)
                 if (delete_after_convert):
                     os.remove(filepath)
+
+
+def get_train_dataset_properties(train_data_path):
+    data_used = [
+        "population.json", "movies.json", "jobs.json", "iris.json",
+        "driving.json", "crimea.json", "cars.json", "weball26.json",
+        "burtin.json", "barley.json", "birdstrikes.json"
+    ]
+    property_holder = []
+    for datafile in data_used:
+        filepath = train_data_path + datafile
+        data_content = json.load(open(filepath))
+        # print("Num columns:", (data_content[0]), filepath)
+        for row in data_content:
+            print(filepath, len(row))
+            property_holder.append(len(row))
+            break
+    print("mean: ",
+          sum(property_holder) / len(row), " min", min(property_holder),
+          " max", max(property_holder))
+
+
+def get_test100_data(index):
+    data = json.load(open(test_100_list[index]))
+
+    return data
+
+
+def get_test_dataset_properties(test_data_path):
+    property_holder = []
+    list_holder = []
+    for subdir, dirs, files in os.walk(test_data_path):
+        for file in files:
+            filepath = subdir + os.sep + file
+            if filepath.endswith("json"):
+                data_content = json.load(open(filepath))
+                for row in data_content:
+                    if (len(row) > 4 and len(row) < 7):
+                        # print(filepath, len(row))
+                        property_holder.append(len(row))
+                        list_holder.append(filepath)
+                    break
+    print("Num valunes", len(property_holder), "mean: ",
+          sum(property_holder) / len(row), " min", min(property_holder),
+          " max", max(property_holder))
+
+    with open(test_100_file_path, 'w') as outfile:
+        json.dump(list_holder[:100], outfile)
 
 
 """[Reduce datset size to a threshold. Also delete datasets with less than 7 items ... 

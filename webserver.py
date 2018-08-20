@@ -217,6 +217,14 @@ def testdata():
     return jsonify(data_utils.load_test_dataset())
 
 
+@app.route("/testhundred", methods=['GET'])
+def testhundred():
+    input_data = request.json
+    data = data_utils.get_test100_data(2)
+    response_payload = {"data": data, "status": True}
+    return jsonify(response_payload)
+
+
 @app.route("/inference", methods=['POST'])
 def inference():
     input_data = request.json
