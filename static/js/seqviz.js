@@ -130,7 +130,7 @@ $(function () {
                 modelName = result.model
                 visualizationData = result;
                 testIndex++;
-                loadGeneratedData()
+                loadGeneratedData(true)
             } else {
                 result = JSON.parse(JSON.stringify(result))
                 showNotification("An Error Occurred", result.reason, error + ".")
@@ -206,7 +206,7 @@ $(function () {
         }).done(function (result) {
             $(".sourcedata").val(JSON.stringify(result))
             visualizationData = result;
-            loadGeneratedData()
+            loadGeneratedData(false)
         }).fail(function (xhr, status, error) {
             $(".vizbox").fadeOut("slow")
             hideLoading("#graph_loading_overlay")
@@ -214,7 +214,7 @@ $(function () {
         });;
     }
 
-    function loadGeneratedData() {
+    function loadGeneratedData(isTestSuite) {
         showLoading("#graph_loading_overlay")
         $(".beamboxdiv").fadeOut()
         $(".beamthing").fadeOut()
@@ -288,25 +288,29 @@ $(function () {
                 $(".resultupdate").html(headertext)
                 $(".beamthing").fadeIn()
 
+                // if we are running a test suite, we continue for iterations.
+                if (isTestSuite) {
+                    setTimeout(function () {
+                        testResult = {
+                            "beamwidth": beamWidth,
+                            "validjsoncount": validJsonCount,
+                            "validjsonarray": validJsonArray,
+                            "validvegacount": validVegaspecCount,
+                            "validvegaarray": validVegaspecArray,
+                            "phantomcount": phantomVariableCount,
+                            "phantomarray": phantomVariableArray
+                        }
+                        testResultHolder.push(testResult)
+                        console.log(testIndex, " of ", maxTestDataCount, " Loading next test data", testResult)
+                        if (testIndex < maxTestDataCount) {
+                            loadTestSuiteData()
+                        } else {
+                            sendTestResults()
+                        }
+                    }, 800)
+                }
 
-                setTimeout(function () {
-                    testResult = {
-                        "beamwidth": beamWidth,
-                        "validjsoncount": validJsonCount,
-                        "validjsonarray": validJsonArray,
-                        "validvegacount": validVegaspecCount,
-                        "validvegaarray": validVegaspecArray,
-                        "phantomcount": phantomVariableCount,
-                        "phantomarray": phantomVariableArray
-                    }
-                    testResultHolder.push(testResult)
-                    console.log(testIndex, " Loading next test data", testResult)
-                    if (testIndex < maxTestDataCount) {
-                        loadTestSuiteData()
-                    } else {
-                        sendTestResults()
-                    }
-                }, 800)
+
 
             } else {
                 result = JSON.parse(JSON.stringify(result))

@@ -229,7 +229,7 @@ def testhundred():
 @app.route("/savetest", methods=['POST'])
 def savetest():
     input_data = request.json
-    print("input data >>>>>>>>>", input_data)
+    # print("input data >>>>>>>>>", input_data)
     data = data_utils.save_test_results(input_data)
     response_payload = {"status": True}
     return jsonify(response_payload)
