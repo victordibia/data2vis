@@ -10,49 +10,31 @@ test_data_path = "testdata/"
 
 # utils.get_train_dataset_properties(train_data_path)
 # utils.get_test_dataset_properties(test_data_path)
-print(utils.get_test100_data(2))
+# print(utils.get_test100_data(2))
 
 # # utils.profile_dataset_vegaspec(examples_directory)
 # # utils.generate_data_pairs(utils.examples_directory,
 # #                           utils.train_data_output_directory,
 # #                           utils.data_split_params)
 
-# test_data = [{
-#     "Al": "231",
-#     "Ba": "13.2",
-#     "Br": "8",
-#     "Ca": "3602",
-#     "Ce": "0.92",
-#     "Cu": "0.3",
-#     "Dy": "0.14",
-#     "Er": "0.1",
-#     "Fe": "944",
-#     "Gd": "0.18",
-#     "Ho": "0.04",
-#     "K": "230",
-#     "La": "0.55",
-#     "Li": "0.6",
-#     "Mg": "828",
-#     "Mn": "2.18",
-#     "Nd": "0.76",
-#     "Pr": "0.18",
-#     "Rb": "0.58",
-#     "River1": "Grasse1",
-#     "River2": "Grasse2",
-#     "River3": "Grasse3",
-#     "River4": "Grasse4",
-#     "River5": "Grasse5",
-#     "Si": "3482",
-#     "Site": "1",
-#     "Sr": "19.35",
-#     "Y": "1.15",
-#     "Yb": "0.1",
-#     "Zn": "10",
-#     "Zr": "0.1"
-# }]
+test_data = [{
+    "accel": "0.359",
+    "dist": "12",
+    "event": "1",
+    "mag": "7",
+    "station": "117"
+}]
 
-# field_name_types = utils.generate_field_types(test_data)
-# print(field_name_types, "===\n")
+field_name_types = utils.generate_field_types(test_data)
+print(field_name_types, "===\n")
+
+print("Original ====\n", test_data)
+
+forward_norm = utils.replace_fieldnames(test_data, field_name_types, True)
+print("Forward ====\n", forward_norm)
+
+back_norm = utils.backward_norm(forward_norm, field_name_types)
+print("Backward ====\n", back_norm)
 
 # # def fname_dict_to_array(field_name_types):
 # #     fname_array = []

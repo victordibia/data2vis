@@ -31,6 +31,7 @@ $(function () {
     var testIndex = 0;
     var validJsonCount = 0;
     var validJsonArray = []
+    var vegaSpecArray = []
     var validVegaspecCount = 0;
     var validVegaspecArray = [];
     var beamWidth = 0;
@@ -84,6 +85,7 @@ $(function () {
         phantomVariableCount = 0;
 
         validJsonArray = []
+        vegaSpecArray = []
         validVegaspecArray = [];
         phantomVariableArray = [];
     }
@@ -260,6 +262,7 @@ $(function () {
                     var $beamboxsub = $("<div id='" + beamindex + "' class='beambox'> </div>")
                     try {
                         var spec = JSON.parse(vegaspec);
+                        vegaSpecArray.push(JSON.parse(vegaspec)) // save the generated spec for futher analysis
                         specholder = Object.assign({}, spec);
                         spec["data"] = {
                             "values": result.data
@@ -269,6 +272,7 @@ $(function () {
                         $beamboxsub.addClass("bottomgreen").attr("tooltip", "Valid JSON Generated.")
                         validJsonCount++
                         validJsonArray.push(true)
+
                     } catch (e) {
                         validJsonArray.push(false)
                         // console.log("JSON parse error .. parsing spec", beamindex)
@@ -295,6 +299,7 @@ $(function () {
                             "beamwidth": beamWidth,
                             "validjsoncount": validJsonCount,
                             "validjsonarray": validJsonArray,
+                            "vegaspecarray": vegaSpecArray,
                             "validvegacount": validVegaspecCount,
                             "validvegaarray": validVegaspecArray,
                             "phantomcount": phantomVariableCount,
