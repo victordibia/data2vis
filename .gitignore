@@ -1,3 +1,5 @@
+utils/testresults
+
 char_rnn/save 
 webserver_t.py
 model.zip
