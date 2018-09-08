@@ -361,11 +361,12 @@ $(function () {
         $vizsubbox.attr("tooltip", tooltip)
 
         $(".vizbox").append($vizsubbox)
-        // $vizsubbox.hide()
+        // $vizsubbox.hide() 
 
         vegaEmbed(".vizbeambox#" + divid, vlSpec, opt).then(function (result) {
             validVegaspecCount++
             validVegaspecArray.push(true)
+            console.log(result, "booooo")
         }).catch(function (err) {
             // reloadData()
             validVegaspecArray.push(false)

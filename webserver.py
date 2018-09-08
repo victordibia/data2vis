@@ -44,6 +44,8 @@ PARSER = argparse.ArgumentParser(description="Generates toy datasets.")
 PARSER.add_argument(
     "--port", type=int, default=5016, help="Specify port number to run demo")
 PARSER.add_argument(
+    "--dump_attention", type=int, default=0, help="Dump attention to file")
+PARSER.add_argument(
     "--model_dir",
     type=str,
     default="vizmodel",
@@ -76,7 +78,7 @@ dump_attention_task = {
 }
 
 # add dump attention task if we have only a single result.
-if (ARGS.beam_width == 1):
+if (ARGS.beam_width == 1 and ARGS.dump_attention == 1):
     input_task_list.append(dump_attention_task)
 
 #  {'class': 'DumpBeams', 'params': {'file': ['out.npz']}}]
@@ -284,7 +286,7 @@ def inference():
         decoded_post_array.append(decoded_post)
 
     # decoded_string_post = data_utils.backward_norm(decoded_string, f_names)
-    # print("==========", decoded_post_array)
+    print("==========", decoded_string)
 
     try:
         vega_spec = json.dumps(decoded_post_array)

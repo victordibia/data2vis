@@ -1,8 +1,15 @@
 import os
 import json
 import matplotlib.pyplot as plt
+import numpy as np
 
 test_result_dir = "utils/testresults"
+
+aggregate_terms = [
+    "count", "valid", "missing", "distinct", "sum", "mean", "average",
+    "variance", "variancep", "stdev", "stdevp", "stderr", "median", "q1", "q3",
+    "ci0", "ci1", "min", "max", "argmin", "argmax"
+]
 
 
 def analyze_test_suite(test_dataset_directory):
@@ -13,30 +20,64 @@ def analyze_test_suite(test_dataset_directory):
                     "json") and not filepath.endswith("lsit.json"):
                 data = json.load(open(filepath))
                 print(filepath)
-                # for row in data:
-                #     for field in row.keys():
-                #         if "." in field:
-                #             print(filepath)
-                #         field_holder = row[field]
-                #         new_field_name = field.replace(".",
-                #                                        "_")  #remove periods
-                #         del row[field]
-                #         row[new_field_name] = field_holder
-                # with open(filepath, 'w') as outfile:
-                #     json.dump(data, outfile)
+                # analyze_data(filepath)
+
+
+def is_valid_aggregate(agg_val):
+    if (agg_val not in aggregate_terms):
+        # print("issh", agg_val)
+        return False
+    else:
+        return True
 
 
 def analyze_data(filepath):
-    data = json.load(open("utils/testresults/vizmodelbi15.json"))
+    data = json.load(open(filepath))
     beam_width = data["beamwidth"]
-    print(len(data["data"]))
-    for data["data"] in row:
-        valid_json_count = row["validjsoncount"]
+    valid_json_array = []
+    valid_vega_array = []
+    phantom_count_array = []
+    x = list(range(0, 100))
+    for row in data["data"]:
+        valid_json_count = row["validjsoncount"] / beam_width
+        valid_json_array.append(valid_json_count)
         valid_vega_count = row["validvegacount"]
-        phantom_count = row["phantomcount"]
+
+        phantom_count = row["phantomcount"] / valid_vega_count
+        phantom_count_array.append(phantom_count)
+
+        vs_array = row["vegaspecarray"]
+
+        # mark specs with incorrect aggregation value as invalid vega
+        for vs_row in vs_array:
+            if ("aggregate" in vs_row["encoding"]["y"]):
+                if not is_valid_aggregate(
+                        vs_row["encoding"]["y"]["aggregate"]):
+                    valid_vega_count -= 1
+                else:
+                    if ("aggregate" in vs_row["encoding"]["x"]):
+                        if not is_valid_aggregate(
+                                vs_row["encoding"]["x"]["aggregate"]):
+                            valid_vega_count -= 1
+
+        # print(valid_vega_count, row["validjsoncount"])
+        valid_vega_count = valid_vega_count / beam_width
+        valid_vega_array.append(valid_vega_count)
+
+    # print(x, valid_json_array)
+    # plt.plot(x, valid_json_array)
+    # plt.plot(x, valid_vega_array)
+    # plt.plot(x, phantom_count_array)
+    # plt.show()
+    print(
+        filepath.split("vizmodel")[1], "Json:",
+        round(np.mean(valid_json_array), 3), "Vega",
+        round(np.mean(valid_vega_array), 3), "Phantom",
+        round(np.mean(phantom_count_array), 3))
 
 
-# analyze_test_suite(test_result_dir)
+analyze_test_suite(test_result_dir)
 
-data = json.load(open("utils/testresults/vizmodelbi15.json"))
-print(len(data["data"]))
+# data = json.load(open("utils/testresults/vizmodelbi15.json"))
+# print(len(data["data"]))
+# analyze_data("utils/testresults/vizmodeluninat15.json")

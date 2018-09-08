@@ -12,7 +12,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """ Generates model predictions.
 """
 
@@ -56,77 +55,76 @@ tf.flags.DEFINE_integer("batch_size", 32, "the train/dev batch size")
 
 FLAGS = tf.flags.FLAGS
 
+
 def main(_argv):
-  """Program entry point.
+    """Program entry point.
   """
 
-  # Load flags from config file
-  if FLAGS.config_path:
-    with gfile.GFile(FLAGS.config_path) as config_file:
-      config_flags = yaml.load(config_file)
-      for flag_key, flag_value in config_flags.items():
-        setattr(FLAGS, flag_key, flag_value)
+    # Load flags from config file
+    if FLAGS.config_path:
+        with gfile.GFile(FLAGS.config_path) as config_file:
+            config_flags = yaml.load(config_file)
+            for flag_key, flag_value in config_flags.items():
+                setattr(FLAGS, flag_key, flag_value)
 
-  if isinstance(FLAGS.tasks, string_types):
-    FLAGS.tasks = _maybe_load_yaml(FLAGS.tasks)
+    if isinstance(FLAGS.tasks, string_types):
+        FLAGS.tasks = _maybe_load_yaml(FLAGS.tasks)
 
-  if isinstance(FLAGS.input_pipeline, string_types):
-    FLAGS.input_pipeline = _maybe_load_yaml(FLAGS.input_pipeline)
+    if isinstance(FLAGS.input_pipeline, string_types):
+        FLAGS.input_pipeline = _maybe_load_yaml(FLAGS.input_pipeline)
 
-  input_pipeline_infer = input_pipeline.make_input_pipeline_from_def(
-      FLAGS.input_pipeline, mode=tf.contrib.learn.ModeKeys.INFER,
-      shuffle=False, num_epochs=1)
+    input_pipeline_infer = input_pipeline.make_input_pipeline_from_def(
+        FLAGS.input_pipeline,
+        mode=tf.contrib.learn.ModeKeys.INFER,
+        shuffle=False,
+        num_epochs=1)
 
-  # Load saved training options
-  train_options = training_utils.TrainOptions.load(FLAGS.model_dir)
+    # Load saved training options
+    train_options = training_utils.TrainOptions.load(FLAGS.model_dir)
 
-  # Create the model
-  model_cls = locate(train_options.model_class) or \
-    getattr(models, train_options.model_class)
-  model_params = train_options.model_params
-  model_params = _deep_merge_dict(
-      model_params, _maybe_load_yaml(FLAGS.model_params))
-  model = model_cls(
-      params=model_params,
-      mode=tf.contrib.learn.ModeKeys.INFER)
+    # Create the model
+    model_cls = locate(train_options.model_class) or \
+      getattr(models, train_options.model_class)
+    model_params = train_options.model_params
+    model_params = _deep_merge_dict(model_params,
+                                    _maybe_load_yaml(FLAGS.model_params))
+    model = model_cls(
+        params=model_params, mode=tf.contrib.learn.ModeKeys.INFER)
 
-  def _save_prediction_to_dict(output_string):
-     print (output_string)
-     
-  # Load inference tasks
-  hooks = []
-  for tdict in FLAGS.tasks:
-    if not "params" in tdict:
-      tdict["params"] = {}
-    task_cls = locate(tdict["class"]) or getattr(tasks, tdict["class"])
-    task = task_cls(tdict["params"],callback_func=_save_prediction_to_dict)
-    hooks.append(task)
+    # Load inference tasks
+    hooks = []
+    for tdict in FLAGS.tasks:
+        if not "params" in tdict:
+            tdict["params"] = {}
+        task_cls = locate(tdict["class"]) or getattr(tasks, tdict["class"])
+        task = task_cls(tdict["params"])
+        hooks.append(task)
 
-  # Create the graph used for inference
-  predictions, _, _ = create_inference_graph(
-      model=model,
-      input_pipeline=input_pipeline_infer,
-      batch_size=FLAGS.batch_size)
+    # Create the graph used for inference
+    predictions, _, _ = create_inference_graph(
+        model=model,
+        input_pipeline=input_pipeline_infer,
+        batch_size=FLAGS.batch_size)
 
-  saver = tf.train.Saver()
-  checkpoint_path = FLAGS.checkpoint_path
-  if not checkpoint_path:
-    checkpoint_path = tf.train.latest_checkpoint(FLAGS.model_dir)
+    saver = tf.train.Saver()
+    checkpoint_path = FLAGS.checkpoint_path
+    if not checkpoint_path:
+        checkpoint_path = tf.train.latest_checkpoint(FLAGS.model_dir)
 
-  def session_init_op(_scaffold, sess):
-    saver.restore(sess, checkpoint_path)
-    tf.logging.info("Restored model from %s", checkpoint_path)
+    def session_init_op(_scaffold, sess):
+        saver.restore(sess, checkpoint_path)
+        tf.logging.info("Restored model from %s", checkpoint_path)
 
-  scaffold = tf.train.Scaffold(init_fn=session_init_op)
-  session_creator = tf.train.ChiefSessionCreator(scaffold=scaffold)
-  with tf.train.MonitoredSession(
-      session_creator=session_creator,
-      hooks=hooks) as sess:
+    scaffold = tf.train.Scaffold(init_fn=session_init_op)
+    session_creator = tf.train.ChiefSessionCreator(scaffold=scaffold)
+    with tf.train.MonitoredSession(
+            session_creator=session_creator, hooks=hooks) as sess:
 
-    # Run until the inputs are exhausted
-    while not sess.should_stop():
-      sess.run([])
+        # Run until the inputs are exhausted
+        while not sess.should_stop():
+            sess.run([])
+
 
 if __name__ == "__main__":
-  tf.logging.set_verbosity(tf.logging.INFO)
-  tf.app.run()
+    tf.logging.set_verbosity(tf.logging.INFO)
+    tf.app.run()

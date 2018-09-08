@@ -5,7 +5,7 @@ Author: Victor Dibia <victor.dibia@gmail.com>
 
 $(function () {
     // $("#sidebar").load("sidebar.html", function(){
-    var selectedtab = "documentation"
+    var selectedtab = "modifyviz"
     selectedtab = getHash() || selectedtab
     // alert (  selectedtab + $("a.sidelink").html())
     $(".sidebarlinks").removeClass("sidebarselected")
