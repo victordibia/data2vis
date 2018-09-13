@@ -112,7 +112,7 @@ Note: The above prints out an array containing predictions (array size = beam wi
 
 ## Web Demo.
 
-<img src="static/assets/screen.png" width="100%">
+<img src="static/assets/screen.jpg" width="100%">
 
 For convenience, we provide a wrapper ([webserver.py](webserver.py)) that runs a web application with POST endpoints which return translations in JSON format.
 
