@@ -366,7 +366,7 @@ $(function () {
         vegaEmbed(".vizbeambox#" + divid, vlSpec, opt).then(function (result) {
             validVegaspecCount++
             validVegaspecArray.push(true)
-            console.log(result, "booooo")
+            // console.log(result, "booooo")
         }).catch(function (err) {
             // reloadData()
             validVegaspecArray.push(false)

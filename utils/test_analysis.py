@@ -2,25 +2,37 @@ import os
 import json
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy.stats as stats
+
+# t_stat, p_val = stats.ttest_ind(sample1, sample2, equal_var=False)
 
 test_result_dir = "utils/testresults"
-
+all_results = {}
 aggregate_terms = [
     "count", "valid", "missing", "distinct", "sum", "mean", "average",
     "variance", "variancep", "stdev", "stdevp", "stderr", "median", "q1", "q3",
     "ci0", "ci1", "min", "max", "argmin", "argmax"
 ]
 
+file_paths = [
+    "/vizmodeluninat5.json", "/vizmodeluninat10.json",
+    "/vizmodeluninat15.json", "/vizmodeluni5.json", "/vizmodeluni10.json",
+    "/vizmodeluni15.json", "/vizmodelbi5.json", "/vizmodelbi10.json",
+    "/vizmodelbi15.json"
+]
+
 
 def analyze_test_suite(test_dataset_directory):
-    for subdir, dirs, files in os.walk(test_dataset_directory):
-        for file in files:
-            filepath = subdir + os.sep + file
-            if filepath.endswith(
-                    "json") and not filepath.endswith("lsit.json"):
-                data = json.load(open(filepath))
-                print(filepath)
-                # analyze_data(filepath)
+    # for subdir, dirs, files in os.walk(test_dataset_directory):
+    #     for file in files:
+    #         filepath = subdir + os.sep + file
+    #         if filepath.endswith(
+    #                 "json") and not filepath.endswith("lsit.json"):
+    for filepath in file_paths:
+        filepath = test_result_dir + filepath
+        # data = json.load(open(filepath))
+        # print(filepath)
+        analyze_data(filepath)
 
 
 def is_valid_aggregate(agg_val):
@@ -75,7 +87,7 @@ def analyze_data(filepath):
         round(np.mean(valid_vega_array), 3), "Phantom",
         round(np.mean(phantom_count_array), 3))
 
-
+    result = {"json": valid_json_array, "vega"}
 analyze_test_suite(test_result_dir)
 
 # data = json.load(open("utils/testresults/vizmodelbi15.json"))

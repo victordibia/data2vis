@@ -17,7 +17,7 @@ Qualitative results show that our model learns the vocabulary and syntax for a v
 
 
 ## Data Generation and Model
-<img src="static/assets/datatransform.png" width="100%">
+<img src="static/assets/datatransform.jpg" width="100%">
 
 > Data2Vis is based on the code [seq2seq](https://github.com/google/seq2seq) code repository. The reader is highly encouraged to read the [seq2seq code documentation](https://google.github.io/seq2seq/) to learn more about training and inference are implemented. This repo only adds our [training data](examples), [data preparation scripts](utils), and a script to [serve](webserver.py) seq2seq inference results over a web api used in the [web demo](static).
 

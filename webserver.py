@@ -286,7 +286,7 @@ def inference():
         decoded_post_array.append(decoded_post)
 
     # decoded_string_post = data_utils.backward_norm(decoded_string, f_names)
-    print("==========", decoded_string)
+    # print("==========", decoded_string)
 
     try:
         vega_spec = json.dumps(decoded_post_array)
