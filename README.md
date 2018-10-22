@@ -4,6 +4,8 @@
 
 This repository contains source code used for experiments in the [Data2Vis](https://arxiv.org/abs/1804.03126) paper.
 
+Slides: [Data2Vis Slides](https://drive.google.com/open?id=1IvAZoSQUsaboUuREC3LxfkEIYOovV5Hq)
+
 Paper: [Data2Vis](https://arxiv.org/abs/1804.03126) paper
 
 Demo: View [sample results here](http://hci.stanford.edu/~cagatay/data2vis/).

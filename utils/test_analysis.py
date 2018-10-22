@@ -16,9 +16,10 @@ aggregate_terms = [
 
 file_paths = [
     "/vizmodeluninat5.json", "/vizmodeluninat10.json",
-    "/vizmodeluninat15.json", "/vizmodeluni5.json", "/vizmodeluni10.json",
-    "/vizmodeluni15.json", "/vizmodelbi5.json", "/vizmodelbi10.json",
-    "/vizmodelbi15.json"
+    "/vizmodeluninat15.json", "/vizmodeluninat20.json", "/vizmodeluni5.json",
+    "/vizmodeluni10.json", "/vizmodeluni15.json", "/vizmodeluni20.json",
+    "/vizmodelbi5.json", "/vizmodelbi10.json", "/vizmodelbi15.json",
+    "/vizmodelbi20.json"
 ]
 
 
@@ -43,6 +44,10 @@ def is_valid_aggregate(agg_val):
         return True
 
 
+def computer_anova():
+    print("anova")
+
+
 def analyze_data(filepath):
     data = json.load(open(filepath))
     beam_width = data["beamwidth"]
@@ -54,9 +59,6 @@ def analyze_data(filepath):
         valid_json_count = row["validjsoncount"] / beam_width
         valid_json_array.append(valid_json_count)
         valid_vega_count = row["validvegacount"]
-
-        phantom_count = row["phantomcount"] / valid_vega_count
-        phantom_count_array.append(phantom_count)
 
         vs_array = row["vegaspecarray"]
 
@@ -76,6 +78,13 @@ def analyze_data(filepath):
         valid_vega_count = valid_vega_count / beam_width
         valid_vega_array.append(valid_vega_count)
 
+        if (valid_vega_count == 0):
+            phantom_count = 1
+        else:
+            phantom_count = row["phantomcount"] / valid_vega_count
+
+        phantom_count_array.append(phantom_count)
+
     # print(x, valid_json_array)
     # plt.plot(x, valid_json_array)
     # plt.plot(x, valid_vega_array)
@@ -84,10 +93,13 @@ def analyze_data(filepath):
     print(
         filepath.split("vizmodel")[1], "Json:",
         round(np.mean(valid_json_array), 3), "Vega",
-        round(np.mean(valid_vega_array), 3), "Phantom",
-        round(np.mean(phantom_count_array), 3))
+        round(np.mean(valid_vega_array), 3))
+    # "Mean % Phantom",
+    # round(np.mean(phantom_count_array), 3))
 
-    result = {"json": valid_json_array, "vega"}
+    result = {"json:": valid_json_array, "vega": valid_vega_array}
+
+
 analyze_test_suite(test_result_dir)
 
 # data = json.load(open("utils/testresults/vizmodelbi15.json"))
