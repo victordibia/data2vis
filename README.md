@@ -64,7 +64,7 @@ Note: we used no delimiters to indicate we are training a character model.
 To run inference, use the infer script in the [bin](bin) folder.
 
 ```bash
-python -m bin.infer \
+python3 -m bin.infer \
   --tasks "
     - class: DecodeText
       params:
