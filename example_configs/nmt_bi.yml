@@ -1,0 +1,55 @@
+model: AttentionSeq2Seq
+model_params:
+  attention.class: seq2seq.decoders.attention.AttentionLayerDot
+  attention.params:
+    num_units: 512
+  bridge.class: seq2seq.models.bridges.ZeroBridge
+  embedding.dim: 512
+  encoder.class: seq2seq.encoders.BidirectionalRNNEncoder
+  encoder.params:
+    rnn_cell:
+      cell_class: LSTMCell
+      cell_params:
+        num_units: 512
+      dropout_input_keep_prob: 0.5
+      dropout_output_keep_prob: 1.0
+      num_layers: 2
+  decoder.class: seq2seq.decoders.AttentionDecoder
+  decoder.params:
+    rnn_cell:
+      cell_class: LSTMCell
+      cell_params:
+        num_units: 512
+      dropout_input_keep_prob: 0.5
+      dropout_output_keep_prob: 1.0
+      num_layers: 2
+  optimizer.name: Adam
+  optimizer.params:
+    epsilon: 0.0000008
+  optimizer.learning_rate: 0.0001
+  source.max_seq_len: 500
+  source.reverse: false
+  target.max_seq_len: 500
+  vocab_source: sourcedata/vocab.source
+  vocab_target: sourcedata/vocab.target 
+input_pipeline_train:
+  class: ParallelTextInputPipeline
+  params:
+    source_delimiter: ''
+    target_delimiter: ''
+    source_files: 
+      - sourcedata/train.sources
+    target_files: 
+      - sourcedata/train.targets
+input_pipeline_dev:
+  class: ParallelTextInputPipeline
+  params:
+    source_delimiter: ''
+    target_delimiter: ''
+    source_files: 
+      - sourcedata/dev.sources
+    target_files: 
+      - sourcedata/dev.targets
+batch_size: 32 
+train_steps: 20000
+output_dir: vizmodel
