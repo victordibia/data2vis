@@ -50,39 +50,14 @@ Following directions in the seq2seq repository, you can initiate a training run 
 You can find several example configurations in the [example_configs](example_configs) folder.
 
 ```shell
-export DATA_DIR=project-directory
-python -m bin.train \
-  --config_paths="
-      $DATA_DIR/example_configs/nmt_custom.yml,
-      $DATA_DIR/example_configs/train_seq2seq.yml,
-      $DATA_DIR/example_configs/text_metrics_bpe.yml" \
-  --model_params "
-      vocab_source: $DATA_DIR/sourcedata/vocab.source
-      vocab_target: $DATA_DIR/sourcedata/vocab.target"
-  --input_pipeline_train "
-    class: ParallelTextInputPipeline
-    params:
-      source_delimiter: ''
-      target_delimiter: ''
-      source_files:
-        - $DATA_DIR/sourcedata/train.sources
-      target_files:
-        - $DATA_DIR/sourcedata/train.targets"
-  --input_pipeline_dev "
-    class: ParallelTextInputPipeline
-    params:
-       source_delimiter: ''
-       target_delimiter: ''
-       source_files:
-        - $DATA_DIR/sourcedata/dev.sources
-       target_files:
-        - $DATA_DIR/sourcedata/dev.targets"
-  --batch_size 32 \
-  --train_steps 100000 \
-  --output_dir $DATA_DIR/vizmodel
+python -m bin.train --config_paths="example_configs/nmt_bi.yml,example_configs/train_seq2seq.yml,example_configs/text_metrics_bpe.yml" 
 ```
 
 Note: we used no delimiters to indicate we are training a character model.
+
+```
+
+```
 
 ## Inference
 
