@@ -2,7 +2,7 @@
 
 > Experiments in generating visualizations using sequence to sequence models.
 
-This repository contains source code used for experiments in the [Data2Vis](https://arxiv.org/abs/1804.03126) paper.
+This repository contains source code used for experiments in the [Data2Vis](https://arxiv.org/abs/1804.03126) paper. Note that the code was tested with Python 3. Please python 3 as your test environment.
 
 Slides: [Data2Vis Slides](https://docs.google.com/presentation/d/e/2PACX-1vSKaGElY3kNozGvIhINyIuwtsJ3AmBxhXtHQmRaQqasyGu5lw3YJxhCHSdRmq3UVAot_2c3F0NJC2Hg/pub?start=false&loop=false&delayms=10000)
 
@@ -40,7 +40,7 @@ For convenience we include a data generation [script](utils/data_gen.py) which i
 The seq2seq code has a few dependencies that can be installed using the `requirement.txt` file
 
 ```bash
-pip install -r requirements.txt
+sudo pip3 install -r requirements.txt
 ```
 
 ## Training a Model
@@ -121,7 +121,7 @@ For convenience, we provide a wrapper ([webserver.py](webserver.py)) that runs a
 Code for the [web demo](http://hci.stanford.edu/~cagatay/data2vis/) can be run with the following command.
 
 ```
-python code/webserver.py
+python3 webserver.py
 ```
 
 ## Citing this work
