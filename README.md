@@ -50,7 +50,7 @@ Following directions in the seq2seq repository, you can initiate a training run 
 You can find several example configurations in the [example_configs](example_configs) folder.
 
 ```shell
-python -m bin.train --config_paths="example_configs/nmt_bi.yml,example_configs/train_seq2seq.yml,example_configs/text_metrics_bpe.yml" 
+python3 -m bin.train --config_paths="example_configs/nmt_bi.yml,example_configs/train_seq2seq.yml,example_configs/text_metrics_bpe.yml" 
 ```
 
 Note: we used no delimiters to indicate we are training a character model.
