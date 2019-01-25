@@ -1,8 +1,8 @@
+import data_utils as utils
 import json
 import os
 import operator
 test_dataset_directory = "testdata"
-import data_utils as utils
 
 examples_directory = "examples"
 train_data_path = "examplesdata/"
@@ -22,7 +22,8 @@ test_data = [{
     "dist": "12",
     "event": "1",
     "mag": "7",
-    "station": "117"
+    "station": "117",
+    "eventdate": "1 22019"
 }]
 
 field_name_types = utils.generate_field_types(test_data)

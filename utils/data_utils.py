@@ -79,7 +79,10 @@ def isint(x):
 
 
 def is_date(string):
+    if isint(string) or isfloat(string):
+        return False
     try:
+        # print(string)
         parse(string)
         return True
     except ValueError:
@@ -106,14 +109,19 @@ def non_null_label(full_array, label_key):
 # Generate an array of field types for a given dataset
 def generate_field_types(t_data):
     # print (t_data[0])
-    data_labels = {"str": 0, "num": 0}
+    data_labels = {"str": 0, "num": 0, "dt": 0}
     field_name_types = {}
     field_name_types_array = []
     for field_name in t_data[0]:
         current_label = non_null_label(t_data,
-                                       field_name)  #t_data[0][field_name]
+                                       field_name)  # t_data[0][field_name]
         # print("=====", current_label, field_name)
-        if (isint(current_label) or isfloat(current_label)):
+        if (is_date(current_label) and not (isint(current_label)) and not (isfloat(current_label))):
+            replace_num_var = "dt" + str(data_labels["dt"])
+            data_labels["dt"] = data_labels["dt"] + 1
+            field_name_types[field_name] = replace_num_var
+            field_name_types_array.append({field_name: replace_num_var})
+        elif (isint(current_label) or isfloat(current_label)):
             replace_num_var = "num" + str(data_labels["num"])
             data_labels["num"] = data_labels["num"] + 1
             field_name_types[field_name] = replace_num_var
@@ -236,8 +244,8 @@ def generate_data_pairs(examples_directory, train_data_output_directory,
                         #     source_data_spec = source_data_spec.replace(
                         #         str(field_name), field_name_types[field_name])
 
-                        print(source_data_spec, "=****=", target_vega_spec,
-                              "==========\n")
+                        # print(source_data_spec, "=****=", target_vega_spec,
+                        #       "==========\n")
 
                         # Keep track of maximum source sequence length
                         if len(source_data_spec) > max_source_seq_length:
@@ -247,49 +255,49 @@ def generate_data_pairs(examples_directory, train_data_output_directory,
                         all_target_hold.append(target_vega_spec)
                     # break
 
-    # with open(
-    #         train_data_output_directory + "/all_train.sources",
-    #         mode='wt',
-    #         encoding='utf-8') as outfile:
-    #     outfile.write('\n'.join(str(line) for line in all_sources_hold))
-    # with open(
-    #         train_data_output_directory + "/all_train.targets",
-    #         mode='wt',
-    #         encoding='utf-8') as outfile:
-    #     outfile.write('\n'.join(str(line) for line in all_target_hold))
+    with open(
+            train_data_output_directory + "/all_train.sources",
+            mode='wt',
+            encoding='utf-8') as outfile:
+        outfile.write('\n'.join(str(line) for line in all_sources_hold))
+    with open(
+            train_data_output_directory + "/all_train.targets",
+            mode='wt',
+            encoding='utf-8') as outfile:
+        outfile.write('\n'.join(str(line) for line in all_target_hold))
 
-    # print("size of all files", len(all_sources_hold), len(all_target_hold))
-    # print("Max Source Seq Lenght", max_source_seq_length)
-    # print("Max Target Seq Lenght", max_target_seq_length)
+    print("size of all files", len(all_sources_hold), len(all_target_hold))
+    print("Max Source Seq Lenght", max_source_seq_length)
+    print("Max Target Seq Lenght", max_target_seq_length)
 
-    # # Uniformly shuffle source and target sequence pair lists
-    # rand_list = list(range(0, len(all_sources_hold) - 1))
-    # shuffle(rand_list)
-    # # print(rand_list)
-    # all_sources_hold = shuffle_elements(rand_list, all_sources_hold)
-    # all_target_hold = shuffle_elements(rand_list, all_target_hold)
+    # Uniformly shuffle source and target sequence pair lists
+    rand_list = list(range(0, len(all_sources_hold) - 1))
+    shuffle(rand_list)
+    # print(rand_list)
+    all_sources_hold = shuffle_elements(rand_list, all_sources_hold)
+    all_target_hold = shuffle_elements(rand_list, all_target_hold)
 
-    # for param in data_split_params:
-    #     with open(
-    #             train_data_output_directory + "/" + param["tag"] + ".sources",
-    #             mode='wt',
-    #             encoding='utf-8') as outfile:
-    #         outfile.write('\n'.join(
-    #             str(line) for line in all_sources_hold[int(
-    #                 param["percentage"][0] * len(all_sources_hold)):int(
-    #                     param["percentage"][1] * len(all_sources_hold))]))
-    #     print("  > Saved ",
-    #           train_data_output_directory + "/" + param["tag"] + ".sources")
-    #     with open(
-    #             train_data_output_directory + "/" + param["tag"] + ".targets",
-    #             mode='wt',
-    #             encoding='utf-8') as outfile:
-    #         outfile.write('\n'.join(
-    #             str(line) for line in all_target_hold[int(
-    #                 param["percentage"][0] * len(all_target_hold)):int(
-    #                     param["percentage"][1] * len(all_target_hold))]))
-    #     print("  > Saved ",
-    #           train_data_output_directory + "/" + param["tag"] + ".targets")
+    for param in data_split_params:
+        with open(
+                train_data_output_directory + "/" + param["tag"] + ".sources",
+                mode='wt',
+                encoding='utf-8') as outfile:
+            outfile.write('\n'.join(
+                str(line) for line in all_sources_hold[int(
+                    param["percentage"][0] * len(all_sources_hold)):int(
+                        param["percentage"][1] * len(all_sources_hold))]))
+        print("  > Saved ",
+              train_data_output_directory + "/" + param["tag"] + ".sources")
+        with open(
+                train_data_output_directory + "/" + param["tag"] + ".targets",
+                mode='wt',
+                encoding='utf-8') as outfile:
+            outfile.write('\n'.join(
+                str(line) for line in all_target_hold[int(
+                    param["percentage"][0] * len(all_target_hold)):int(
+                        param["percentage"][1] * len(all_target_hold))]))
+        print("  > Saved ",
+              train_data_output_directory + "/" + param["tag"] + ".targets")
 
 
 """[Delete none vl spec files from examples directory, generate a list of datafiles]
@@ -317,7 +325,7 @@ def clean_examples_directory(examples_directory):
     print("Example file cleaning complete.")
 
 
-#Read CSV File
+# Read CSV File
 def read_csv(file, json_file, format):
     csv_rows = []
     with open(file) as csvfile:
@@ -330,7 +338,7 @@ def read_csv(file, json_file, format):
         write_json(csv_rows, json_file, format)
 
 
-#Convert csv data into json and write it
+# Convert csv data into json and write it
 def write_json(data, json_file, format):
     with open(json_file, "w") as f:
         if format == "pretty":
@@ -475,7 +483,7 @@ def clean_test_dataset_remove_periods():
                             print(filepath)
                         field_holder = row[field]
                         new_field_name = field.replace(".",
-                                                       "_")  #remove periods
+                                                       "_")  # remove periods
                         del row[field]
                         row[new_field_name] = field_holder
                 with open(filepath, 'w') as outfile:

@@ -1,4 +1,8 @@
-[{
+import pandas as pd
+import numpy as np
+import data_utils as utils
+
+values = [{
     "age": "18",
     "education": "1. < HS Grad",
     "health": "1. <=Good",
@@ -23,3 +27,8 @@
     "wage": "70.4760196469445",
     "year": "2004"
 }]
+
+df = pd.DataFrame(values)
+# print(df.dtypes)
+
+print(utils.is_date("1-2-2019"))

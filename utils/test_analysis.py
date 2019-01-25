@@ -75,15 +75,17 @@ def analyze_data(filepath):
                             valid_vega_count -= 1
 
         # print(valid_vega_count, row["validjsoncount"])
+        valid_vegap_count = valid_vega_count
         valid_vega_count = valid_vega_count / beam_width
         valid_vega_array.append(valid_vega_count)
 
         if (valid_vega_count == 0):
-            phantom_count = 1
+            phantom_count = 0
         else:
-            phantom_count = row["phantomcount"] / valid_vega_count
+            phantom_count = row["phantomcount"] / valid_vegap_count
 
         phantom_count_array.append(phantom_count)
+        # print("Count", row["phantomcount"], valid_vegap_count)
 
     # print(x, valid_json_array)
     # plt.plot(x, valid_json_array)
@@ -93,9 +95,8 @@ def analyze_data(filepath):
     print(
         filepath.split("vizmodel")[1], "Json:",
         round(np.mean(valid_json_array), 3), "Vega",
-        round(np.mean(valid_vega_array), 3))
-    # "Mean % Phantom",
-    # round(np.mean(phantom_count_array), 3))
+        round(np.mean(valid_vega_array), 3), "Mean % Phantom",
+        round(np.mean(phantom_count_array), 3))
 
     result = {"json:": valid_json_array, "vega": valid_vega_array}
 
