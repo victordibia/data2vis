@@ -25,7 +25,7 @@ values = [{
     "race": "1. White",
     "region": "2. Middle Atlantic",
     "wage": "70.4760196469445",
-    "year": "2004"
+    "year": "Wed Jan 25"
 }]
 
 df = pd.DataFrame(values)

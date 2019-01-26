@@ -50,6 +50,7 @@ input_pipeline_dev:
       - sourcedata/dev.sources
     target_files: 
       - sourcedata/dev.targets
-batch_size: 32 
+batch_size: 16 
 train_steps: 20000
 output_dir: vizmodel
+eval_every_n_steps: 10
