@@ -52,6 +52,6 @@ input_pipeline_dev:
       - sourcedata/dev.targets
 batch_size: 32 
 train_steps: 20000
-save_checkpoints_steps: 15000
+save_checkpoints_steps: 1000
 output_dir: vizmodel
 eval_every_n_steps: 15000
