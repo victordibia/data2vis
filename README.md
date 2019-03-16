@@ -10,6 +10,8 @@ Paper: [Data2Vis](https://arxiv.org/abs/1804.03126) paper
 
 Demo: View [sample results here](http://hci.stanford.edu/~cagatay/data2vis/).
 
+> The models in this repo were exported and tested using **Tensorflow version 1.10**. More recent verions might fail to load the saved models due to differences in ops specification. Please use **Tensorflow version 1.10** or earlier.
+
 <img src="static/assets/blogheader.jpg" width="100%">
 
 Rapidly creating effective visualizations using expressive grammars is challenging for users who have limited time and limited skills in statistics and data visualization. Even high-level, dedicated visualization tools often require users to manually select among data attributes, decide which transformations to apply, and specify mappings between visual encoding variables and raw or transformed attributes. 
