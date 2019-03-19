@@ -2,7 +2,7 @@
 
 > Experiments in generating visualizations using sequence to sequence models.
 
-This repository contains source code used for experiments in the [Data2Vis](https://arxiv.org/abs/1804.03126) paper. Note that the code was tested with Python 3. Please python 3 as your test environment.
+This repository contains source code used for experiments in the [Data2Vis](https://arxiv.org/abs/1804.03126) paper. Note that the code was tested with Python 3. Please python 3 as your test environment. The model also contains large files (vizmodel) saved with git-lfs, please install git-lfs and ensure you have the right filesize.
 
 Slides: [Data2Vis Slides](https://docs.google.com/presentation/d/e/2PACX-1vSKaGElY3kNozGvIhINyIuwtsJ3AmBxhXtHQmRaQqasyGu5lw3YJxhCHSdRmq3UVAot_2c3F0NJC2Hg/pub?start=false&loop=false&delayms=10000)
 
@@ -10,7 +10,7 @@ Paper: [Data2Vis](https://arxiv.org/abs/1804.03126) paper
 
 Demo: View [sample results here](http://hci.stanford.edu/~cagatay/data2vis/).
 
-> The models in this repo were exported and tested using **Tensorflow version 1.10**. More recent verions might fail to load the saved models due to differences in ops specification. Please use **Tensorflow version 1.10** or earlier.
+> The models in this repo were exported and tested using **Tensorflow version 1.10**. More recent verions might fail to load the saved models due to differences in ops specification. Please use **Tensorflow version 1.10** or earlier.  
 
 <img src="static/assets/blogheader.jpg" width="100%">
 
@@ -100,6 +100,9 @@ Code for the [web demo](http://hci.stanford.edu/~cagatay/data2vis/) can be run w
 ```
 python3 webserver.py
 ```
+
+
+> Note that this demo uses a saved model from the vizmodel directory (187mb). The model is stored on Github using git-lfs. Please use git-lfs to clone the repository and ensure you have the entire 187mb saved model.
 
 ## Citing this work
 
