@@ -63,7 +63,7 @@ Note: we used no delimiters to indicate we are training a character model.
 
 ## Inference
 
-To run inference, use the infer script in the [bin](bin) folder.
+To run inference, use the infer script in the [bin](bin) folder. 
 
 ```bash
 python3 -m bin.infer \
@@ -87,6 +87,14 @@ Note: The above prints out an array containing predictions (array size = beam wi
 `model_dir` is the directory containing trained model.
 `source_files` is the path to a file containing text (data) to be translated.
 `inference.beam_search.beam_width` sets the beam width used in beam search. 
+
+Also note that the input text in `test.txt` must be in the transformed input format (ie. string, numeric and date column names are replaced with a short form).
+
+```
+{"num0": "0", "num1": "4", "num2": "80", "str0": "female"}
+```
+
+The  `forward_norm` method in the `utils/data_utils.py` file can be used to generate this normalized version of any data input. Alternatively, the user is encouraged to use the web demo interface.
 
 
 ## Web Demo.

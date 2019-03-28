@@ -55,6 +55,11 @@ tf.flags.DEFINE_integer("batch_size", 32, "the train/dev batch size")
 
 FLAGS = tf.flags.FLAGS
 
+def _save_prediction_to_dict(output_string):
+    print("Decoded string")
+    print("===================")
+    print(output_string)
+
 
 def main(_argv):
     """Program entry point.
@@ -97,7 +102,9 @@ def main(_argv):
         if not "params" in tdict:
             tdict["params"] = {}
         task_cls = locate(tdict["class"]) or getattr(tasks, tdict["class"])
-        task = task_cls(tdict["params"])
+        print("******", task_cls)
+        task = task_cls(tdict["params"], callback_func=_save_prediction_to_dict)
+        
         hooks.append(task)
 
     # Create the graph used for inference
