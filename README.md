@@ -112,6 +112,8 @@ python3 webserver.py
 
 > Note that this demo uses a saved model from the vizmodel directory (187mb). The model is stored on Github using git-lfs. Please use git-lfs to clone the repository and ensure you have the entire 187mb saved model.
 
+Also note that the parameters for the model are stored in the [vizmodel/train_options.json](vizmodel/train_options.json) folder. If you trained the model from scratch, add `the max_sequence_length` parameter and set it to a large value (e.g 2000) otherwise the model would generate a short sequence by default.
+
 ## Citing this work
 
 The Data2Vis paper can be cited as follows:
