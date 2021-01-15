@@ -23,7 +23,7 @@ Qualitative results show that our model learns the vocabulary and syntax for a v
 ## Data Generation and Model
 <img src="static/assets/datatransform.jpg" width="100%">
 
-> Data2Vis is based on the code [seq2seq](https://github.com/google/seq2seq) code repository. The reader is highly encouraged to read the [seq2seq code documentation](https://google.github.io/seq2seq/) to learn more about training and inference are implemented. This repo only adds our [training data](examples), [data preparation scripts](utils), and a script to [serve](webserver.py) seq2seq inference results over a web api used in the [web demo](static).
+> Data2Vis is based on the code [seq2seq](https://github.com/google/seq2seq) code repository. The reader is highly encouraged to read the [seq2seq code documentation](https://google.github.io/seq2seq/) to learn more about training and inference are implemented. This repo only adds our [training data](examples), [data preparation scripts](utils), and a script to [serve](webserver.py) seq2seq inference results over a web api used in the [web demo](static). 
 
 Sequence to sequence models are trained using source and target pairs. In this experiment the source pair is a line of `json data` and target pair is a valid Vega-lite visualization specification for the `json data`. The [examples](code/examples) folder contains 4300 Vega-lite examples from which 215k pairs are generated ([sourcedata](code/sourcedata)) folder)and subsequently used to train a seq2seq model. 
 
@@ -113,6 +113,9 @@ python3 webserver.py
 > Note that this demo uses a saved model from the vizmodel directory (187mb). The model is stored on Github using git-lfs. Please use git-lfs to clone the repository and ensure you have the entire 187mb saved model.
 
 Also note that the parameters for the model are stored in the [vizmodel/train_options.json](vizmodel/train_options.json) folder. If you trained the model from scratch, add `the max_sequence_length` parameter and set it to a large value (e.g 2000) otherwise the model would generate a short sequence by default.
+
+
+
 
 ## Citing this work
 
