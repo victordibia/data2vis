@@ -1,6 +1,0 @@
-pyyaml
-flask
-python-dateutil
-matplotlib
-pyopenssl
-flask-cors
