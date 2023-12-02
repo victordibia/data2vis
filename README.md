@@ -4,6 +4,8 @@
 
 This repository contains source code used for experiments in the [Data2Vis](https://arxiv.org/abs/1804.03126) paper. Note that the code was tested with Python 3. Please python 3 as your test environment. The model also contains large files (vizmodel) saved with git-lfs, please install git-lfs and ensure you have the right filesize.
 
+> Update: An update on this work has published based on large language models. Dibia, Victor. "LIDA: A Tool for Automatic Generation of Grammar-Agnostic Visualizations and Infographics using Large Language Models." arXiv preprint arXiv:2303.02927 (2023). Paper and code available on GitHub https://github.com/microsoft/lida
+
 Slides: [Data2Vis Slides](https://docs.google.com/presentation/d/e/2PACX-1vSKaGElY3kNozGvIhINyIuwtsJ3AmBxhXtHQmRaQqasyGu5lw3YJxhCHSdRmq3UVAot_2c3F0NJC2Hg/pub?start=false&loop=false&delayms=10000)
 
 Paper: [Data2Vis](https://arxiv.org/abs/1804.03126) paper
