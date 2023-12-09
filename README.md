@@ -140,7 +140,7 @@ The Data2Vis paper can be cited as follows:
 
 
 ## Acknowledgement
-This work was enabled by the contributions of many individuals. Thanks to the authors of the Vega-Lite,Voyager library and for sharing example data used for our experiments. Many thanks to the authors of the TensorFlow [seq2seq](https://github.com/google/seq2seq) model implementation and the TensorFlow library team — their work enabled us to learn about sequence models and rapidly prototype our experiments will little previous experience.
+This work was enabled by the contributions of many individuals. Thanks to the authors of the Vega-Lite,Voyager library and for sharing example data used for our experiments. Many thanks to the authors of the TensorFlow [seq2seq](https://github.com/google/seq2seq) model implementation and the TensorFlow library team — their work enabled us to learn about sequence models and rapidly prototype our experiments with little previous experience.
 
  
  
